@@ -9,12 +9,12 @@ namespace docente_tecnico_api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class UsersControler : ControllerBase {
+public class UsersController : ControllerBase {
 
     private IMapper _mapper;
     private UserManager<User> _userManager;
 
-    public UsersControler(IMapper mapper, UserManager<User> userManager) {
+    public UsersController(IMapper mapper, UserManager<User> userManager) {
         _mapper = mapper;
         _userManager = userManager;
     }

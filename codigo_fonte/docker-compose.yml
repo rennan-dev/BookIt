@@ -1,0 +1,62 @@
+services:
+  mysql: 
+    image: mysql:8.0
+    container_name: mysql
+    networks:
+      - bookit-bridge
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 30s
+      retries: 10
+      timeout: 10s
+
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq-service
+    networks:
+      - bookit-bridge
+    ports:
+      - 5672:5672
+
+  docente-tecnico-service:
+    build:
+        context: ./docente_tecnico/docente_tecnico_api
+        dockerfile: Dockerfile
+    image: userservice:1.1
+    container_name: docente-tecnico-api
+    networks:
+      - bookit-bridge
+    ports:
+      - 5023:8080
+    depends_on:
+      mysql:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_started
+    volumes:
+      - ./dataprotection-keys:/root/.aspnet/DataProtection-Keys
+
+  admin-service:
+    build:
+      context: ./admin/admin_api
+      dockerfile: Dockerfile
+    image: adminservice:1.1
+    container_name: admin
+    networks:
+      - bookit-bridge
+    ports:
+      - 5035:8080
+    depends_on:
+      mysql:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_started
+    volumes:
+      - ./dataprotection-keys:/root/.aspnet/DataProtection-Keys
+
+networks:
+  bookit-bridge:
+    driver: bridge
