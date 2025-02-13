@@ -61,7 +61,7 @@ O BookIt é um sistema de gerenciamento de reservas desenvolvido para a UFAM, pe
 ## Como Executar
 
 1. **Pré-requisitos**:
-   - Certifique-se de ter o **Docker** e o **Docker Compose** instalados na sua máquina.
+   - Certifique-se de ter o **Docker** e o **Docker Compose** instalados na sua máquina e que ele esteja executando.
    - Navegue até o diretório onde está localizado o arquivo `docker-compose.yml`.
 
 2. **Executando o projeto**:
