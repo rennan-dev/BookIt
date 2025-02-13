@@ -57,7 +57,38 @@ O BookIt é um sistema de gerenciamento de reservas desenvolvido para a UFAM, pe
 - **Mensageria:** RabbitMQ
 - **Autenticação:** JWT (JSON Web Tokens)
 - **Containerização:** Docker
-## Licença
 
+## Como Executar
+
+1. **Pré-requisitos**:
+   - Certifique-se de ter o **Docker** e o **Docker Compose** instalados na sua máquina.
+   - Navegue até o diretório onde está localizado o arquivo `docker-compose.yml`.
+
+2. **Executando o projeto**:
+   - Abra o terminal e execute o comando abaixo para iniciar os containers do Docker:
+     ```bash
+     docker compose up --build
+     ```
+   - Este comando irá:
+     - Construir as imagens dos containers.
+     - Iniciar o MySQL, RabbitMQ, e os serviços do backend (Admin e Docente-Técnico API).
+
+3. **Encerrando os containers**:
+   - Quando terminar de trabalhar no projeto, você pode parar os containers com o seguinte comando:
+     ```bash
+     docker-compose down
+     ```
+
+4. **Visualizando as interfaces**:
+   - **Para os usuários comuns (Técnicos e Docentes)**, você pode acessar a interface Swagger através do seguinte endereço:
+     ```plaintext
+     http://localhost:5023/swagger/index.html
+     ```
+   - **Para o Administrador**, acesse a interface Swagger no seguinte endereço:
+     ```plaintext
+     http://localhost:5035/swagger/index.html
+     ```
+     
+## Licença
 [MIT](https://github.com/rennan-dev/BookIt/blob/main/LICENSE)
 
