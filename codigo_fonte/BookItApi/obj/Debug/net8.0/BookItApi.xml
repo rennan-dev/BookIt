@@ -16,9 +16,9 @@
             </summary>
             <param name="adminService">Serviço responsável pela lógica de negócios relacionada aos administradores.</param>
         </member>
-        <member name="M:BookItApi.Controllers.AdminController.CadastraUsuario(BookItApi.Dtos.Admin.CreateAdminDto)">
+        <member name="M:BookItApi.Controllers.AdminController.CadastraAdmin(BookItApi.Dtos.Admin.CreateAdminDto)">
             <summary>
-            Adiciona um administrador ao banco de dados do WebAPI
+            Adiciona um administrador ao banco de dados do BookIt
             </summary>
             <param name="adminDto">Objetos com os campos necessários para a criação de um admin</param>
             <returns>
@@ -44,6 +44,46 @@
             Task
             </returns>
             <response code="200">Caso o admin se deslogue com sucesso</response>
+        </member>
+        <member name="T:BookItApi.Controllers.ServidorController">
+            <summary>
+            Controlador responsável por gerenciar as operações de servidores no sistema,
+            incluindo cadastro, login e logout de servidores.
+            </summary>
+        </member>
+        <member name="M:BookItApi.Controllers.ServidorController.#ctor(BookItApi.Services.ServidorService)">
+            <summary>
+            Inicializa uma nova instância do controlador <see cref="T:BookItApi.Controllers.ServidorController"/>.
+            </summary>
+            <param name="servidorService">Serviço responsável pela lógica de negócios relacionada aos administradores.</param>
+        </member>
+        <member name="M:BookItApi.Controllers.ServidorController.CadastraUsuario(BookItApi.Dtos.Servidor.CreateServidorDto)">
+            <summary>
+            Adiciona um servidor ao banco de dados do BookIt
+            </summary>
+            <param name="servidorDto">Objetos com os campos necessários para a criação de um servidor</param>
+            <returns>
+            Task
+            </returns>
+            <response code="200">Caso inserção seja feita com sucesso</response>
+        </member>
+        <member name="M:BookItApi.Controllers.ServidorController.Login(BookItApi.Dtos.Servidor.LoginServidorDto)">
+            <summary> 
+            Faz login no sistema como Servidor
+            </summary>
+            <param name="servidorDto">Objeto com os campos necessários para a realização do login</param>
+            <returns>Retorna um token JWT se a autenticação for bem-sucedida.</returns>
+            <response code="200">Caso login seja feito com sucesso</response>
+            <response code="401">Caso as credenciais estejam incorretas</response>
+        </member>
+        <member name="M:BookItApi.Controllers.ServidorController.Logout">
+            <summary>
+            Faz logout do sistema como Servidor.
+            </summary>
+            <returns>
+            Task
+            </returns>
+            <response code="200">Caso o servidor se deslogue com sucesso</response>
         </member>
         <member name="T:BookItApi.Data.AdminDbContext">
             <summary>
@@ -215,6 +255,22 @@
             A confirmação de senha deve ser igual à senha fornecida em "Password".
             </summary>
         </member>
+        <member name="T:BookItApi.Dtos.Servidor.LoginServidorDto">
+            <summary>
+            Representa os dados de um servidor para fazer login no sistema.
+            </summary>
+        </member>
+        <member name="P:BookItApi.Dtos.Servidor.LoginServidorDto.Cpf">
+            <summary>
+            Obtém o CPF do admin.
+            O CPF deve estar no formato 000.000.000-00.
+            </summary>
+        </member>
+        <member name="P:BookItApi.Dtos.Servidor.LoginServidorDto.Password">
+            <summary>
+            Obtém a senha do admin.
+            </summary>
+        </member>
         <member name="T:BookItApi.Dtos.Servidor.ReadServidorDto">
             <summary>
             Representa os dados de um servidor que foram recuperados do sistema.
@@ -304,7 +360,6 @@
         <member name="P:BookItApi.Models.Servidor.Name">
             <summary>
             Obtém ou define o nome completo do servidor.
-            Ex: "Rennan Alves"
             </summary>
         </member>
         <member name="P:BookItApi.Models.Servidor.Siape">
@@ -365,10 +420,12 @@
         </member>
         <member name="M:BookItApi.Services.AdminService.CadastraAdmin(BookItApi.Dtos.Admin.CreateAdminDto)">
             <summary>
-            Cadastra um novo administrador no sistema.
+            Cadastra um novo administrador no sistema, garantindo que SIAPE, e-mail e telefone sejam únicos
+            e que não haja um Servidor já cadastrado com os mesmos dados.
             </summary>
             <param name="adminDto">Objeto com os dados do administrador a ser cadastrado.</param>
             <returns>Retorna um Task representando a operação de cadastro.</returns>
+            <exception cref="T:System.ApplicationException">Lançada caso já exista um administrador ou servidor com dados duplicados.</exception>
         </member>
         <member name="M:BookItApi.Services.AdminService.Login(BookItApi.Dtos.Admin.LoginAdminDto)">
             <summary>
@@ -382,6 +439,41 @@
             Realiza o logout do administrador.
             </summary>
             <returns>Retorna um Task representando a operação de logout.</returns>
+        </member>
+        <member name="T:BookItApi.Services.ServidorService">
+            <summary>
+            Serviço responsável pelas operações de autenticação e gerenciamento de servidores no sistema.
+            Inclui funcionalidades como cadastro, login, logout e etc.
+            </summary>
+        </member>
+        <member name="M:BookItApi.Services.ServidorService.#ctor(AutoMapper.IMapper,BookItApi.Services.TokenService,BookItApi.Data.AdminDbContext)">
+            <summary>
+            Inicializa uma nova instância da classe <see cref="T:BookItApi.Services.ServidorService"/>.
+            </summary>
+            <param name="mapper">Objeto de mapeamento entre DTOs e modelos de domínio.</param>
+            <param name="tokenService">Serviço responsável pela geração de tokens JWT.</param>
+            <param name="context">Contexto do banco de dados específico para a administração de dados de servidores.</param>
+        </member>
+        <member name="M:BookItApi.Services.ServidorService.CadastraServidor(BookItApi.Dtos.Servidor.CreateServidorDto)">
+            <summary>
+            Cadastra um novo servidor no sistema, garantindo que SIAPE, CPF, e-mail e telefone sejam únicos
+            e que não haja um Administrador já cadastrado com os mesmos dados.
+            </summary>
+            <param name="servidorDto">Objeto com os dados do servidor a ser cadastrado.</param>
+            <returns>Retorna um Task representando a operação de cadastro.</returns>
+            <exception cref="T:System.ApplicationException">Lançada caso já exista um servidor ou administrador com dados duplicados.</exception>
+        </member>
+        <member name="M:BookItApi.Services.ServidorService.Login(BookItApi.Dtos.Servidor.LoginServidorDto)">
+            <summary>
+            Realiza o login de um servidor no sistema.
+            </summary>
+            <param name="servidorDto">Objeto com as credenciais do servidor para o login.</param>
+            <returns>Retorna o token JWT gerado após o login.</returns>
+        </member>
+        <member name="M:BookItApi.Services.ServidorService.Logout">
+            <summary>
+            Realiza o logout do servidor.
+            </summary>
         </member>
         <member name="T:BookItApi.Services.TokenService">
             <summary>

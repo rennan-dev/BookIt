@@ -10,7 +10,7 @@ namespace BookItApi.Controllers;
 /// incluindo cadastro, login e logout de administradores.
 /// </summary>
 [ApiController]
-[Route("api/controller")]
+[Route("api/[controller]")]
 public class AdminController : ControllerBase {
     
     private AdminService _adminService;
@@ -24,7 +24,7 @@ public class AdminController : ControllerBase {
     }
 
     /// <summary>
-    /// Adiciona um administrador ao banco de dados do WebAPI
+    /// Adiciona um administrador ao banco de dados do BookIt
     /// </summary>
     /// <param name="adminDto">Objetos com os campos necessários para a criação de um admin</param>
     /// <returns>
@@ -33,7 +33,7 @@ public class AdminController : ControllerBase {
     /// <response code="200">Caso inserção seja feita com sucesso</response>
     [ProducesResponseType(StatusCodes.Status200OK)]
     [HttpPost("cadastro")]
-    public async Task<IActionResult> CadastraUsuario(CreateAdminDto adminDto) {
+    public async Task<IActionResult> CadastraAdmin(CreateAdminDto adminDto) {
         await _adminService.CadastraAdmin(adminDto);
         return Ok("Admin cadastrado!");
     }

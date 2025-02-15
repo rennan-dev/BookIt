@@ -34,7 +34,6 @@ O BookIt é um sistema de gerenciamento de reservas desenvolvido para a UFAM, pe
 
 
 ## Como Usar
-
 1. Admin:
     - Faça login com suas credenciais.
     - Aprove ou recuse solicitações de reserva e cadastros de usuários.
@@ -44,8 +43,30 @@ O BookIt é um sistema de gerenciamento de reservas desenvolvido para a UFAM, pe
     - Faça o cadastro no sistema e aguarde a aprovação do admin.
     - Após aprovado, faça login e solicite reservas de recursos.
     - Gerencie suas reservas, cancelando-as se necessário.
-## Tecnologias Utilizadas
 
+## Como Rodar a Aplicação  
+
+### Pré-requisitos  
+
+Antes de começar, certifique-se de ter instalado:  
+- [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)  
+- [MySQL](https://dev.mysql.com/downloads/) 
+
+no codigo_fonte/BookItApi/appsettings.json coloque o seu user e senha do MySQL, depois entre no terminal dentro da pasta do projeto BookIt, utilize esse comando para atualizar o database:
+
+``dotnet ef database update``
+
+Posteriormente utilize para rodar o programa:
+
+``dotnet run``
+
+Depois acesse essa URL para acessar a API da aplicação:
+
+``http://localhost:5092/swagger/index.html``
+
+
+
+## Tecnologias Utilizadas
 - **Frontend:** React
 - **Backend:** C#
 - **Banco de Dados:** MySQL
