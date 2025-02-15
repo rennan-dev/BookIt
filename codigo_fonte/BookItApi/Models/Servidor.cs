@@ -10,7 +10,6 @@ public class Servidor : IdentityUser {
 
     /// <summary>
     /// Obtém ou define o nome completo do servidor.
-    /// Ex: "Rennan Alves"
     /// </summary>
     [Required(ErrorMessage = "O nome completo é obrigatório.")]
     [StringLength(100, ErrorMessage = "O nome completo não pode ter mais de 100 caracteres.")]

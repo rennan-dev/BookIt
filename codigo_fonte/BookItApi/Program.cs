@@ -17,6 +17,7 @@ builder.Services.AddDbContext<AdminDbContext>( opts => {
 builder.Services.AddIdentity<Admin, IdentityRole>().AddEntityFrameworkStores<AdminDbContext>().AddDefaultTokenProviders();
 
 builder.Services.AddScoped<AdminService>();
+builder.Services.AddScoped<ServidorService>();
 builder.Services.AddScoped<TokenService>();
 
 

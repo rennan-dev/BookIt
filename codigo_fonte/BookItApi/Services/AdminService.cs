@@ -3,6 +3,7 @@ using BookItApi.Data;
 using BookItApi.Dtos.Admin;
 using BookItApi.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookItApi.Services;
 
@@ -34,20 +35,67 @@ public class AdminService {
     }
 
     /// <summary>
-    /// Cadastra um novo administrador no sistema.
+    /// Cadastra um novo administrador no sistema, garantindo que SIAPE, e-mail e telefone sejam únicos
+    /// e que não haja um Servidor já cadastrado com os mesmos dados.
     /// </summary>
     /// <param name="adminDto">Objeto com os dados do administrador a ser cadastrado.</param>
     /// <returns>Retorna um Task representando a operação de cadastro.</returns>
+    /// <exception cref="ApplicationException">Lançada caso já exista um administrador ou servidor com dados duplicados.</exception>
     public async Task CadastraAdmin(CreateAdminDto adminDto) {
-        Admin admin = _mapper.Map<Admin>(adminDto);
+        try {
+            var adminExistente = await _userManager.Users
+                .Where(a => a.Siape == adminDto.Siape || 
+                            a.Email == adminDto.Email || 
+                            a.PhoneNumber == adminDto.PhoneNumber)
+                .FirstOrDefaultAsync();
 
-        admin.UserName = adminDto.Cpf;
+            if(adminExistente != null) {
+                if(adminExistente.Siape == adminDto.Siape) {
+                    throw new ApplicationException("Já existe um administrador cadastrado com este SIAPE.");
+                }
+                if(adminExistente.Email == adminDto.Email) {
+                    throw new ApplicationException("Já existe um administrador cadastrado com este e-mail.");
+                }
+                if(adminExistente.PhoneNumber == adminDto.PhoneNumber) {
+                    throw new ApplicationException("Já existe um administrador cadastrado com este telefone.");
+                }
+            }
 
-        IdentityResult resultado = await _userManager.CreateAsync(admin, adminDto.Password);
+            var servidorExistente = await _context.Servidores
+                .Where(s => s.Siape == adminDto.Siape || 
+                            s.Cpf == adminDto.Cpf || 
+                            s.Email == adminDto.Email || 
+                            s.PhoneNumber == adminDto.PhoneNumber)
+                .FirstOrDefaultAsync();
 
-        if(!resultado.Succeeded) {
-            var errors = string.Join(", ", resultado.Errors.Select(e => e.Description));
-            throw new ApplicationException($"Falha ao cadastrar Administrador: {errors}");
+            if(servidorExistente != null) {
+                if(servidorExistente.Siape == adminDto.Siape) {
+                    throw new ApplicationException("Já existe um servidor cadastrado com este SIAPE.");
+                }
+                if(servidorExistente.Cpf == adminDto.Cpf) {
+                    throw new ApplicationException("Já existe um servidor cadastrado com este CPF.");
+                }
+                if(servidorExistente.Email == adminDto.Email) {
+                    throw new ApplicationException("Já existe um servidor cadastrado com este e-mail.");
+                }
+                if(servidorExistente.PhoneNumber == adminDto.PhoneNumber) {
+                    throw new ApplicationException("Já existe um servidor cadastrado com este telefone.");
+                }
+            }
+
+            Admin admin = _mapper.Map<Admin>(adminDto);
+            admin.UserName = adminDto.Cpf;
+
+            IdentityResult resultado = await _userManager.CreateAsync(admin, adminDto.Password);
+
+            if(!resultado.Succeeded) {
+                var errors = string.Join(", ", resultado.Errors.Select(e => e.Description));
+                throw new ApplicationException($"Falha ao cadastrar Administrador: {errors}");
+            }
+        }catch(Exception ex) {
+            Console.WriteLine($"Erro ao cadastrar o administrador: {ex.Message}");
+            Console.WriteLine(ex.StackTrace);
+            throw new ApplicationException($"Falha ao cadastrar o administrador. Detalhes: {ex.Message}");
         }
     }
 

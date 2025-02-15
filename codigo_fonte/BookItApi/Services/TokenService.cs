@@ -53,7 +53,7 @@ public class TokenService  {
         };
 
         var chave = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes("SuaChaveSecretaAqui12345") 
+            Encoding.UTF8.GetBytes("2323R02N902FI03908N038J31093N10ND2049NASIDPOM0J923") 
         );
 
         var signingCredentials = new SigningCredentials(chave, SecurityAlgorithms.HmacSha256);
