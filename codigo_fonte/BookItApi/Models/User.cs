@@ -4,19 +4,24 @@ using Microsoft.AspNetCore.Identity;
 namespace BookItApi.Models;
 
 /// <summary>
-/// Representa um servidor no sistema, que herda de IdentityUser e inclui campos adicionais como Name, SIAPE, CPF e IsAprovado.
+/// Representa um usuário no sistema, que herda de IdentityUser e inclui campos adicionais como IsAdmin, Name, SIAPE, CPF e IsAprovado.
 /// </summary>
-public class Servidor : IdentityUser {
+public class User : IdentityUser {
 
     /// <summary>
-    /// Obtém ou define o nome completo do servidor.
+    /// Indica se o usuário é admin ou não.
     /// </summary>
-    [Required(ErrorMessage = "O nome completo é obrigatório.")]
-    [StringLength(100, ErrorMessage = "O nome completo não pode ter mais de 100 caracteres.")]
+    public bool IsAdmin { get; set; } = false;
+
+    /// <summary>
+    /// Obtém ou define o nome do usuário.
+    /// </summary>
+    [Required(ErrorMessage = "O nome é obrigatório.")]
+    [StringLength(100, ErrorMessage = "O nome não pode ter mais de 100 caracteres.")]
     public string Name { get; set; } = string.Empty;
 
     /// <summary>
-    /// Obtém ou define o SIAPE do servidor.
+    /// Obtém ou define o SIAPE do usuário.
     /// O SIAPE deve ter exatamente 6 dígitos numéricos.
     /// </summary>
     [Required(ErrorMessage = "O SIAPE é obrigatório.")]
@@ -25,7 +30,7 @@ public class Servidor : IdentityUser {
 
 
     /// <summary>
-    /// Obtém ou define o CPF do servidor.
+    /// Obtém ou define o CPF do usuário.
     /// O CPF deve estar no formato 000.000.000-00.
     /// </summary>
     [Required(ErrorMessage = "O CPF é obrigatório.")]
@@ -36,5 +41,6 @@ public class Servidor : IdentityUser {
     /// Indica se o servidor foi aprovado pelo administrador para utilizar o sistema.
     /// Só será verdadeiro quando o administrador aprovar o servidor.
     /// </summary>
+    [Required(ErrorMessage = "O usuário precisa ser aprovado para acessar o sistema")]
     public bool IsAprovado { get; set; } = false;
 }

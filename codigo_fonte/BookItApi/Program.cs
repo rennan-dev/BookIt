@@ -2,22 +2,21 @@ using System.Reflection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using BookItApi.Services;
 using BookItApi.Data;
 using BookItApi.Models;
-using BookItApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("BookItApi");
 
-builder.Services.AddDbContext<AdminDbContext>( opts => { 
+builder.Services.AddDbContext<UserDbContext>( opts => { 
     opts.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
 
-builder.Services.AddIdentity<Admin, IdentityRole>().AddEntityFrameworkStores<AdminDbContext>().AddDefaultTokenProviders();
+builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<UserDbContext>().AddDefaultTokenProviders();
 
-builder.Services.AddScoped<AdminService>();
-builder.Services.AddScoped<ServidorService>();
+builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<TokenService>();
 
 
@@ -35,6 +34,13 @@ builder.Services.AddSwaggerGen(c=> {
     c.IncludeXmlComments(xmlPath);
 });
 
+builder.Services.AddCors(options => {
+    options.AddPolicy("AllowReactApp",
+        policy => policy.WithOrigins("http://localhost:3000") 
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -44,6 +50,8 @@ if (app.Environment.IsDevelopment()) {
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowReactApp"); //conexao front end
 
 app.UseAuthorization();
 
