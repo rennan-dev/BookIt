@@ -4,475 +4,237 @@
         <name>BookItApi</name>
     </assembly>
     <members>
-        <member name="T:BookItApi.Controllers.AdminController">
+        <member name="T:BookItApi.Controllers.UserController">
             <summary>
-            Controlador responsável por gerenciar as operações de administradores no sistema,
-            incluindo cadastro, login e logout de administradores.
+            Controlador responsável por gerenciar as operações dos usuários no sistema,
             </summary>
         </member>
-        <member name="M:BookItApi.Controllers.AdminController.#ctor(BookItApi.Services.AdminService)">
+        <member name="M:BookItApi.Controllers.UserController.#ctor(BookItApi.Services.UserService)">
             <summary>
-            Inicializa uma nova instância do controlador <see cref="T:BookItApi.Controllers.AdminController"/>.
+            Inicializa uma nova instância do controlador <see cref="T:BookItApi.Controllers.UserController"/>.
             </summary>
-            <param name="adminService">Serviço responsável pela lógica de negócios relacionada aos administradores.</param>
+            <param name="userService">Serviço responsável pela lógica de negócios relacionada aos usuários.</param>
         </member>
-        <member name="M:BookItApi.Controllers.AdminController.CadastraAdmin(BookItApi.Dtos.Admin.CreateAdminDto)">
+        <member name="M:BookItApi.Controllers.UserController.CadastraUser(BookItApi.Dtos.User.CreateUserDto)">
             <summary>
-            Adiciona um administrador ao banco de dados do BookIt
+            Adiciona um usuário ao banco de dados do BookIt
             </summary>
-            <param name="adminDto">Objetos com os campos necessários para a criação de um admin</param>
+            <param name="userDto">Objetos com os campos necessários para a criação de um usuário</param>
             <returns>
             Task
             </returns>
             <response code="200">Caso inserção seja feita com sucesso</response>
         </member>
-        <member name="M:BookItApi.Controllers.AdminController.Login(BookItApi.Dtos.Admin.LoginAdminDto)">
+        <member name="M:BookItApi.Controllers.UserController.LoginUser(BookItApi.Dtos.User.LoginUserDto)">
             <summary>
-            Faz login no sistema como admin
+            Faz login no sistema
             </summary>
-            <param name="adminDto">Objetos com os campos necessários para a realização do login</param>
+            <param name="userDto">Objetos com os campos necessários para a realização do login</param>
             <returns>
             Task
             </returns>
             <response code="200">Caso login seja feito com sucesso</response>
         </member>
-        <member name="M:BookItApi.Controllers.AdminController.Logout">
+        <member name="M:BookItApi.Controllers.UserController.Logout">
             <summary>
-            Faz login com um administrador no WebAPI
+            Faz logout com um usuário
             </summary>
             <returns>
             Task
             </returns>
-            <response code="200">Caso o admin se deslogue com sucesso</response>
+            <response code="200">Caso o usuário se deslogue com sucesso</response>
         </member>
-        <member name="T:BookItApi.Controllers.ServidorController">
-            <summary>
-            Controlador responsável por gerenciar as operações de servidores no sistema,
-            incluindo cadastro, login e logout de servidores.
-            </summary>
-        </member>
-        <member name="M:BookItApi.Controllers.ServidorController.#ctor(BookItApi.Services.ServidorService)">
-            <summary>
-            Inicializa uma nova instância do controlador <see cref="T:BookItApi.Controllers.ServidorController"/>.
-            </summary>
-            <param name="servidorService">Serviço responsável pela lógica de negócios relacionada aos administradores.</param>
-        </member>
-        <member name="M:BookItApi.Controllers.ServidorController.CadastraUsuario(BookItApi.Dtos.Servidor.CreateServidorDto)">
-            <summary>
-            Adiciona um servidor ao banco de dados do BookIt
-            </summary>
-            <param name="servidorDto">Objetos com os campos necessários para a criação de um servidor</param>
-            <returns>
-            Task
-            </returns>
-            <response code="200">Caso inserção seja feita com sucesso</response>
-        </member>
-        <member name="M:BookItApi.Controllers.ServidorController.Login(BookItApi.Dtos.Servidor.LoginServidorDto)">
-            <summary> 
-            Faz login no sistema como Servidor
-            </summary>
-            <param name="servidorDto">Objeto com os campos necessários para a realização do login</param>
-            <returns>Retorna um token JWT se a autenticação for bem-sucedida.</returns>
-            <response code="200">Caso login seja feito com sucesso</response>
-            <response code="401">Caso as credenciais estejam incorretas</response>
-        </member>
-        <member name="M:BookItApi.Controllers.ServidorController.Logout">
-            <summary>
-            Faz logout do sistema como Servidor.
-            </summary>
-            <returns>
-            Task
-            </returns>
-            <response code="200">Caso o servidor se deslogue com sucesso</response>
-        </member>
-        <member name="T:BookItApi.Data.AdminDbContext">
+        <member name="T:BookItApi.Data.UserDbContext">
             <summary>
             Representa o contexto de dados para a aplicação, que gerencia as entidades de admin e servidor, 
             além das tabelas de autenticação do Identity.
             </summary>
         </member>
-        <member name="M:BookItApi.Data.AdminDbContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{BookItApi.Data.AdminDbContext})">
+        <member name="M:BookItApi.Data.UserDbContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{BookItApi.Data.UserDbContext})">
             <summary>
             Inicializa uma nova instância do contexto, configurando as opções passadas.
             </summary>
             <param name="opts">As opções de configuração do contexto do banco de dados.</param>    
         </member>
-        <member name="P:BookItApi.Data.AdminDbContext.Servidores">
+        <member name="T:BookItApi.Dtos.User.CreateUserDto">
             <summary>
-            Representa a tabela de servidores no banco de dados.
+            Representa os dados necessários para criar um novo usuário no sistema.
             </summary>
         </member>
-        <member name="T:BookItApi.Dtos.Admin.CreateAdminDto">
+        <member name="P:BookItApi.Dtos.User.CreateUserDto.IsAdmin">
             <summary>
-            Representa os dados necessários para criar um novo admin no sistema.
+            Indica se o usuário é admin ou servidor.
             </summary>
         </member>
-        <member name="P:BookItApi.Dtos.Admin.CreateAdminDto.Siape">
+        <member name="P:BookItApi.Dtos.User.CreateUserDto.Siape">
             <summary>
-            Obtém ou define o SIAPE do admin.
+            Obtém ou define o SIAPE do usuário.
             O SIAPE deve ter exatamente 6 dígitos numéricos.
             </summary>
         </member>
-        <member name="P:BookItApi.Dtos.Admin.CreateAdminDto.Cpf">
+        <member name="P:BookItApi.Dtos.User.CreateUserDto.Cpf">
             <summary>
-            Obtém ou define o CPF do admin.
+            Obtém ou define o CPF do usuário.
             O CPF deve estar no formato 000.000.000-00.
             </summary>
         </member>
-        <member name="P:BookItApi.Dtos.Admin.CreateAdminDto.Name">
+        <member name="P:BookItApi.Dtos.User.CreateUserDto.Name">
             <summary>
-            Obtém ou define o nome completo do admin.
-            Exemplo: "Rennan Alves".
+            Obtém ou define o nome completo do usuário.
             O nome completo não pode ter mais de 100 caracteres.
             </summary>
         </member>
-        <member name="P:BookItApi.Dtos.Admin.CreateAdminDto.Email">
+        <member name="P:BookItApi.Dtos.User.CreateUserDto.Email">
             <summary>
-            Obtém ou define o e-mail do admin.
+            Obtém ou define o e-mail do usuário.
             O e-mail deve ser válido e não pode ter mais de 120 caracteres.
             </summary>
         </member>
-        <member name="P:BookItApi.Dtos.Admin.CreateAdminDto.PhoneNumber">
+        <member name="P:BookItApi.Dtos.User.CreateUserDto.PhoneNumber">
             <summary>
-            Obtém ou define o número de celular do admin.
+            Obtém ou define o número de celular do usuário.
             O celular deve estar no formato (00) 00000-0000.
             </summary>
         </member>
-        <member name="P:BookItApi.Dtos.Admin.CreateAdminDto.Password">
-            <summary>
-            Obtém ou define a senha do admin.
-            A senha deve ter no mínimo 8 caracteres e no máximo 120 caracteres.
-            </summary>
-        </member>
-        <member name="P:BookItApi.Dtos.Admin.CreateAdminDto.RePassword">
-            <summary>
-            Obtém ou define a confirmação de senha do admin.
-            A confirmação de senha deve ser igual à senha fornecida em "Password".
-            </summary>
-        </member>
-        <member name="T:BookItApi.Dtos.Admin.LoginAdminDto">
-            <summary>
-            Representa os dados de um admin para fazer login no sistema.
-            </summary>
-        </member>
-        <member name="P:BookItApi.Dtos.Admin.LoginAdminDto.Cpf">
-            <summary>
-            Obtém o CPF do admin.
-            O CPF deve estar no formato 000.000.000-00.
-            </summary>
-        </member>
-        <member name="P:BookItApi.Dtos.Admin.LoginAdminDto.Password">
-            <summary>
-            Obtém a senha do admin.
-            </summary>
-        </member>
-        <member name="T:BookItApi.Dtos.Admin.ReadAdminDto">
-            <summary>
-            Representa os dados de um admin que foram recuperados do sistema.
-            </summary>
-        </member>
-        <member name="P:BookItApi.Dtos.Admin.ReadAdminDto.Id">
-            <summary>
-            Obtém o identificador único do admin.
-            </summary>
-        </member>
-        <member name="P:BookItApi.Dtos.Admin.ReadAdminDto.Name">
-            <summary>
-            Obtém o nome completo do admin.
-            Exemplo: "Rennan Alves".
-            O nome completo não pode ter mais de 100 caracteres.
-            </summary>
-        </member>
-        <member name="P:BookItApi.Dtos.Admin.ReadAdminDto.Siape">
-            <summary>
-            Obtém o SIAPE do admin.
-            O SIAPE deve ter exatamente 6 dígitos numéricos.
-            </summary>
-        </member>
-        <member name="P:BookItApi.Dtos.Admin.ReadAdminDto.Cpf">
-            <summary>
-            Obtém o CPF do admin.
-            O CPF deve estar no formato 000.000.000-00.
-            </summary>
-        </member>
-        <member name="P:BookItApi.Dtos.Admin.ReadAdminDto.Email">
-            <summary>
-            Obtém o e-mail do admin.
-            O e-mail deve ser válido e não pode ter mais de 120 caracteres.
-            </summary>
-        </member>
-        <member name="P:BookItApi.Dtos.Admin.ReadAdminDto.PhoneNumber">
-            <summary>
-            Obtém o número de celular do admin.
-            O celular deve estar no formato (00) 00000-0000.
-            </summary>
-        </member>
-        <member name="T:BookItApi.Dtos.Servidor.CreateServidorDto">
-            <summary>
-            Representa os dados necessários para criar um novo servidor no sistema.
-            </summary>
-        </member>
-        <member name="P:BookItApi.Dtos.Servidor.CreateServidorDto.Siape">
-            <summary>
-            Obtém ou define o SIAPE do servidor.
-            O SIAPE deve ter exatamente 6 dígitos numéricos.
-            </summary>
-        </member>
-        <member name="P:BookItApi.Dtos.Servidor.CreateServidorDto.Cpf">
-            <summary>
-            Obtém ou define o CPF do servidor.
-            O CPF deve estar no formato 000.000.000-00.
-            </summary>
-        </member>
-        <member name="P:BookItApi.Dtos.Servidor.CreateServidorDto.Name">
-            <summary>
-            Obtém ou define o nome completo do servidor.
-            Exemplo: "Rennan Alves".
-            O nome completo não pode ter mais de 100 caracteres.
-            </summary>
-        </member>
-        <member name="P:BookItApi.Dtos.Servidor.CreateServidorDto.Email">
-            <summary>
-            Obtém ou define o e-mail do servidor.
-            O e-mail deve ser válido e não pode ter mais de 120 caracteres.
-            </summary>
-        </member>
-        <member name="P:BookItApi.Dtos.Servidor.CreateServidorDto.PhoneNumber">
-            <summary>
-            Obtém ou define o número de celular do servidor.
-            O celular deve estar no formato (00) 00000-0000.
-            </summary>
-        </member>
-        <member name="P:BookItApi.Dtos.Servidor.CreateServidorDto.Password">
-            <summary>
-            Obtém ou define a senha do servidor.
-            A senha deve ter no mínimo 8 caracteres e no máximo 120 caracteres.
-            </summary>
-        </member>
-        <member name="P:BookItApi.Dtos.Servidor.CreateServidorDto.RePassword">
-            <summary>
-            Obtém ou define a confirmação de senha do servidor.
-            A confirmação de senha deve ser igual à senha fornecida em "Password".
-            </summary>
-        </member>
-        <member name="T:BookItApi.Dtos.Servidor.LoginServidorDto">
-            <summary>
-            Representa os dados de um servidor para fazer login no sistema.
-            </summary>
-        </member>
-        <member name="P:BookItApi.Dtos.Servidor.LoginServidorDto.Cpf">
-            <summary>
-            Obtém o CPF do admin.
-            O CPF deve estar no formato 000.000.000-00.
-            </summary>
-        </member>
-        <member name="P:BookItApi.Dtos.Servidor.LoginServidorDto.Password">
-            <summary>
-            Obtém a senha do admin.
-            </summary>
-        </member>
-        <member name="T:BookItApi.Dtos.Servidor.ReadServidorDto">
-            <summary>
-            Representa os dados de um servidor que foram recuperados do sistema.
-            </summary>
-        </member>
-        <member name="P:BookItApi.Dtos.Servidor.ReadServidorDto.Id">
-            <summary>
-            Obtém ou define o identificador único do servidor.
-            </summary>
-        </member>
-        <member name="P:BookItApi.Dtos.Servidor.ReadServidorDto.Name">
-            <summary>
-            Obtém ou define o nome completo do servidor.
-            Exemplo: "Rennan Alves".
-            O nome completo não pode ter mais de 100 caracteres.
-            </summary>
-        </member>
-        <member name="P:BookItApi.Dtos.Servidor.ReadServidorDto.Siape">
-            <summary>
-            Obtém ou define o SIAPE do servidor.
-            O SIAPE deve ter exatamente 6 dígitos numéricos.
-            </summary>
-        </member>
-        <member name="P:BookItApi.Dtos.Servidor.ReadServidorDto.Cpf">
-            <summary>
-            Obtém ou define o CPF do servidor.
-            O CPF deve estar no formato 000.000.000-00.
-            </summary>
-        </member>
-        <member name="P:BookItApi.Dtos.Servidor.ReadServidorDto.Email">
-            <summary>
-            Obtém ou define o e-mail do servidor.
-            O e-mail deve ser válido e não pode ter mais de 120 caracteres.
-            </summary>
-        </member>
-        <member name="P:BookItApi.Dtos.Servidor.ReadServidorDto.PhoneNumber">
-            <summary>
-            Obtém ou define o número de celular do servidor.
-            O celular deve estar no formato (00) 00000-0000.
-            </summary>
-        </member>
-        <member name="P:BookItApi.Dtos.Servidor.ReadServidorDto.IsAprovado">
+        <member name="P:BookItApi.Dtos.User.CreateUserDto.IsAprovado">
             <summary>
             Indica se o servidor foi aprovado pelo administrador para utilizar o sistema.
             Só será verdadeiro quando o administrador aprovar o servidor.
             </summary>
         </member>
-        <member name="T:BookItApi.Migrations.Inicial">
-            <inheritdoc />
-        </member>
-        <member name="M:BookItApi.Migrations.Inicial.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="M:BookItApi.Migrations.Inicial.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="M:BookItApi.Migrations.Inicial.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="T:BookItApi.Models.Admin">
+        <member name="P:BookItApi.Dtos.User.CreateUserDto.Password">
             <summary>
-            Representa um administrador no sistema, que herda de IdentityUser e inclui campos adicionais como Name, SIAPE e CPF.
+            Obtém ou define a senha do usuário.
+            A senha deve ter no mínimo 8 caracteres e no máximo 120 caracteres.
             </summary>
         </member>
-        <member name="P:BookItApi.Models.Admin.Name">
+        <member name="P:BookItApi.Dtos.User.CreateUserDto.RePassword">
             <summary>
-            Obtém ou define o nome completo do admin.
+            Obtém ou define a confirmação de senha do usuário.
+            A confirmação de senha deve ser igual à senha fornecida em "Password".
             </summary>
         </member>
-        <member name="P:BookItApi.Models.Admin.Siape">
+        <member name="T:BookItApi.Dtos.User.LoginUserDto">
             <summary>
-            Obtém ou define o SIAPE do admin.
-            O SIAPE deve ter exatamente 6 dígitos numéricos.
+            Representa os dados de um usuário para fazer login no sistema.
             </summary>
         </member>
-        <member name="P:BookItApi.Models.Admin.Cpf">
+        <member name="P:BookItApi.Dtos.User.LoginUserDto.Cpf">
             <summary>
-            Obtém ou define o CPF do admin.
+            Obtém o CPF do usuário.
             O CPF deve estar no formato 000.000.000-00.
             </summary>
         </member>
-        <member name="T:BookItApi.Models.Servidor">
+        <member name="P:BookItApi.Dtos.User.LoginUserDto.Password">
             <summary>
-            Representa um servidor no sistema, que herda de IdentityUser e inclui campos adicionais como Name, SIAPE, CPF e IsAprovado.
+            Obtém a senha do usuário.
             </summary>
         </member>
-        <member name="P:BookItApi.Models.Servidor.Name">
+        <member name="T:BookItApi.Dtos.User.ReadUserDto">
             <summary>
-            Obtém ou define o nome completo do servidor.
+            Representa os dados de um usuário que foram recuperados do sistema.
             </summary>
         </member>
-        <member name="P:BookItApi.Models.Servidor.Siape">
+        <member name="P:BookItApi.Dtos.User.ReadUserDto.Id">
             <summary>
-            Obtém ou define o SIAPE do servidor.
+            Obtém o identificador único do usuário.
+            </summary>
+        </member>
+        <member name="P:BookItApi.Dtos.User.ReadUserDto.IsAdmin">
+            <summary>
+            Indica se o usuário é admin ou não.
+            </summary>
+        </member>
+        <member name="P:BookItApi.Dtos.User.ReadUserDto.Name">
+            <summary>
+            Obtém o nome completo do usuário.
+            O nome completo não pode ter mais de 100 caracteres.
+            </summary>
+        </member>
+        <member name="P:BookItApi.Dtos.User.ReadUserDto.Siape">
+            <summary>
+            Obtém o SIAPE do usuário.
             O SIAPE deve ter exatamente 6 dígitos numéricos.
             </summary>
         </member>
-        <member name="P:BookItApi.Models.Servidor.Cpf">
+        <member name="P:BookItApi.Dtos.User.ReadUserDto.Cpf">
             <summary>
-            Obtém ou define o CPF do servidor.
+            Obtém o CPF do usuário.
             O CPF deve estar no formato 000.000.000-00.
             </summary>
         </member>
-        <member name="P:BookItApi.Models.Servidor.IsAprovado">
+        <member name="P:BookItApi.Dtos.User.ReadUserDto.Email">
+            <summary>
+            Obtém o e-mail do usuário.
+            O e-mail deve ser válido e não pode ter mais de 120 caracteres.
+            </summary>
+        </member>
+        <member name="P:BookItApi.Dtos.User.ReadUserDto.PhoneNumber">
+            <summary>
+            Obtém o número de celular do usuário.
+            O celular deve estar no formato (00) 00000-0000.
+            </summary>
+        </member>
+        <member name="P:BookItApi.Dtos.User.ReadUserDto.IsAprovado">
             <summary>
             Indica se o servidor foi aprovado pelo administrador para utilizar o sistema.
             Só será verdadeiro quando o administrador aprovar o servidor.
             </summary>
         </member>
-        <member name="T:BookItApi.Profiles.AdminProfile">
+        <member name="T:BookItApi.Migrations.SecondMigration">
+            <inheritdoc />
+        </member>
+        <member name="M:BookItApi.Migrations.SecondMigration.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:BookItApi.Migrations.SecondMigration.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:BookItApi.Migrations.SecondMigration.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:BookItApi.Models.User">
             <summary>
-            Configura os mapeamentos entre os DTOs de Admin e os modelos correspondentes.
+            Representa um usuário no sistema, que herda de IdentityUser e inclui campos adicionais como IsAdmin, Name, SIAPE, CPF e IsAprovado.
+            </summary>
+        </member>
+        <member name="P:BookItApi.Models.User.IsAdmin">
+            <summary>
+            Indica se o usuário é admin ou não.
+            </summary>
+        </member>
+        <member name="P:BookItApi.Models.User.Name">
+            <summary>
+            Obtém ou define o nome do usuário.
+            </summary>
+        </member>
+        <member name="P:BookItApi.Models.User.Siape">
+            <summary>
+            Obtém ou define o SIAPE do usuário.
+            O SIAPE deve ter exatamente 6 dígitos numéricos.
+            </summary>
+        </member>
+        <member name="P:BookItApi.Models.User.Cpf">
+            <summary>
+            Obtém ou define o CPF do usuário.
+            O CPF deve estar no formato 000.000.000-00.
+            </summary>
+        </member>
+        <member name="P:BookItApi.Models.User.IsAprovado">
+            <summary>
+            Indica se o servidor foi aprovado pelo administrador para utilizar o sistema.
+            Só será verdadeiro quando o administrador aprovar o servidor.
+            </summary>
+        </member>
+        <member name="T:BookItApi.Profiles.UsersProfile">
+            <summary>
+            Configura os mapeamentos entre os DTOs dos Users e os modelos correspondentes.
             Esta classe é usada pelo AutoMapper para mapear as propriedades entre as classes.
             </summary>
         </member>
-        <member name="M:BookItApi.Profiles.AdminProfile.#ctor">
+        <member name="M:BookItApi.Profiles.UsersProfile.#ctor">
             <summary>
-            Construtor que define os mapeamentos entre os DTOs e os modelos de Admin.
-            </summary>
-        </member>
-        <member name="T:BookItApi.Profiles.ServidorProfile">
-            <summary>
-            Configura os mapeamentos entre os DTOs de Servidor e os modelos correspondentes.
-            Esta classe é usada pelo AutoMapper para mapear as propriedades entre as classes.
-            </summary>
-        </member>
-        <member name="M:BookItApi.Profiles.ServidorProfile.#ctor">
-            <summary>
-            Construtor que define os mapeamentos entre os DTOs e os modelos de Servidor.
-            </summary>
-        </member>
-        <member name="T:BookItApi.Services.AdminService">
-            <summary>
-            Serviço responsável pelas operações de autenticação e gerenciamento de administradores no sistema.
-            Inclui funcionalidades como cadastro, login, logout e etc.
-            </summary>
-        </member>
-        <member name="M:BookItApi.Services.AdminService.#ctor(AutoMapper.IMapper,Microsoft.AspNetCore.Identity.UserManager{BookItApi.Models.Admin},Microsoft.AspNetCore.Identity.SignInManager{BookItApi.Models.Admin},BookItApi.Services.TokenService,BookItApi.Data.AdminDbContext)">
-            <summary>
-            Inicializa uma nova instância da classe <see cref="T:BookItApi.Services.AdminService"/>.
-            </summary>
-            <param name="mapper">Objeto de mapeamento entre DTOs e modelos de domínio.</param>
-            <param name="userManager">Gerenciador de usuários do Identity para administração de contas de usuário.</param>
-            <param name="signInManager">Gerenciador de login do Identity.</param>
-            <param name="tokenService">Serviço responsável pela geração de tokens JWT.</param>
-            <param name="context">Contexto do banco de dados específico para a administração de dados de admins.</param>
-        </member>
-        <member name="M:BookItApi.Services.AdminService.CadastraAdmin(BookItApi.Dtos.Admin.CreateAdminDto)">
-            <summary>
-            Cadastra um novo administrador no sistema, garantindo que SIAPE, e-mail e telefone sejam únicos
-            e que não haja um Servidor já cadastrado com os mesmos dados.
-            </summary>
-            <param name="adminDto">Objeto com os dados do administrador a ser cadastrado.</param>
-            <returns>Retorna um Task representando a operação de cadastro.</returns>
-            <exception cref="T:System.ApplicationException">Lançada caso já exista um administrador ou servidor com dados duplicados.</exception>
-        </member>
-        <member name="M:BookItApi.Services.AdminService.Login(BookItApi.Dtos.Admin.LoginAdminDto)">
-            <summary>
-            Realiza o login de um administrador no sistema.
-            </summary>
-            <param name="adminDto">Objeto com as credenciais do administrador para o login.</param>
-            <returns>Retorna o token JWT gerado após o login.</returns>
-        </member>
-        <member name="M:BookItApi.Services.AdminService.Logout">
-            <summary>
-            Realiza o logout do administrador.
-            </summary>
-            <returns>Retorna um Task representando a operação de logout.</returns>
-        </member>
-        <member name="T:BookItApi.Services.ServidorService">
-            <summary>
-            Serviço responsável pelas operações de autenticação e gerenciamento de servidores no sistema.
-            Inclui funcionalidades como cadastro, login, logout e etc.
-            </summary>
-        </member>
-        <member name="M:BookItApi.Services.ServidorService.#ctor(AutoMapper.IMapper,BookItApi.Services.TokenService,BookItApi.Data.AdminDbContext)">
-            <summary>
-            Inicializa uma nova instância da classe <see cref="T:BookItApi.Services.ServidorService"/>.
-            </summary>
-            <param name="mapper">Objeto de mapeamento entre DTOs e modelos de domínio.</param>
-            <param name="tokenService">Serviço responsável pela geração de tokens JWT.</param>
-            <param name="context">Contexto do banco de dados específico para a administração de dados de servidores.</param>
-        </member>
-        <member name="M:BookItApi.Services.ServidorService.CadastraServidor(BookItApi.Dtos.Servidor.CreateServidorDto)">
-            <summary>
-            Cadastra um novo servidor no sistema, garantindo que SIAPE, CPF, e-mail e telefone sejam únicos
-            e que não haja um Administrador já cadastrado com os mesmos dados.
-            </summary>
-            <param name="servidorDto">Objeto com os dados do servidor a ser cadastrado.</param>
-            <returns>Retorna um Task representando a operação de cadastro.</returns>
-            <exception cref="T:System.ApplicationException">Lançada caso já exista um servidor ou administrador com dados duplicados.</exception>
-        </member>
-        <member name="M:BookItApi.Services.ServidorService.Login(BookItApi.Dtos.Servidor.LoginServidorDto)">
-            <summary>
-            Realiza o login de um servidor no sistema.
-            </summary>
-            <param name="servidorDto">Objeto com as credenciais do servidor para o login.</param>
-            <returns>Retorna o token JWT gerado após o login.</returns>
-        </member>
-        <member name="M:BookItApi.Services.ServidorService.Logout">
-            <summary>
-            Realiza o logout do servidor.
+            Construtor que define os mapeamentos entre os DTOs e os modelos dos Usuários.
             </summary>
         </member>
         <member name="T:BookItApi.Services.TokenService">
@@ -480,19 +242,49 @@
             Serviço responsável pela geração de tokens JWT para autenticação de Admin ou Servidor.
             </summary>
         </member>
-        <member name="M:BookItApi.Services.TokenService.GenerateToken(BookItApi.Models.Admin)">
+        <member name="M:BookItApi.Services.TokenService.GenerateToken(BookItApi.Models.User)">
             <summary>
-            Gera um token JWT para o administrador do sistema.
+            Gera um token JWT para o usuário do sistema.
             </summary>
-            <param name="admin">O administrador que está sendo autenticado.</param>
+            <param name="user">O usuário que está sendo autenticado.</param>
             <returns>Retorna um token JWT assinado e válido.</returns>
         </member>
-        <member name="M:BookItApi.Services.TokenService.GenerateToken(BookItApi.Models.Servidor)">
+        <member name="T:BookItApi.Services.UserService">
             <summary>
-            Gera um token JWT para o servidor.
+            Serviço responsável pelas operações de autenticação e gerenciamento de administradores no sistema.
+            Inclui funcionalidades como cadastro, login, logout e etc.
             </summary>
-            <param name="servidor">O servidor que está sendo autenticado.</param>
-            <returns>Retorna um token JWT assinado e válido.</returns>
+        </member>
+        <member name="M:BookItApi.Services.UserService.#ctor(AutoMapper.IMapper,Microsoft.AspNetCore.Identity.UserManager{BookItApi.Models.User},Microsoft.AspNetCore.Identity.SignInManager{BookItApi.Models.User},BookItApi.Services.TokenService,BookItApi.Data.UserDbContext)">
+            <summary>
+            Inicializa uma nova instância da classe <see cref="T:BookItApi.Services.UserService"/>.
+            </summary>
+            <param name="mapper">Objeto de mapeamento entre DTOs e modelos de domínio.</param>
+            <param name="userManager">Gerenciador de usuários do Identity para administração de contas de usuário.</param>
+            <param name="signInManager">Gerenciador de login do Identity.</param>
+            <param name="tokenService">Serviço responsável pela geração de tokens JWT.</param>
+            <param name="context">Contexto do banco de dados específico para a administração de dados de usuários.</param>
+        </member>
+        <member name="M:BookItApi.Services.UserService.CadastraUsuario(BookItApi.Dtos.User.CreateUserDto)">
+            <summary>
+            Cadastra um novo usuário no sistema, garantindo que SIAPE, e-mail e telefone sejam únicos
+            </summary>
+            <param name="userDto">Objeto com os dados do usuário a ser cadastrado.</param>
+            <returns>Retorna um Task representando a operação de cadastro.</returns>
+            <exception cref="T:System.ApplicationException">Lançada caso já exista um usuário com dados duplicados.</exception>
+        </member>
+        <member name="M:BookItApi.Services.UserService.LoginUser(BookItApi.Dtos.User.LoginUserDto)">
+            <summary>
+            Realiza o login de um usuário no sistema.
+            </summary>
+            <param name="userDto">Objeto com as credenciais do Usuário para o login.</param>
+            <returns>Retorna o token JWT gerado após o login.</returns>
+        </member>
+        <member name="M:BookItApi.Services.UserService.Logout">
+            <summary>
+            Realiza o logout do usuário.
+            </summary>
+            <returns>Retorna um Task representando a operação de logout.</returns>
         </member>
     </members>
 </doc>

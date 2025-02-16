@@ -51,6 +51,7 @@ O BookIt é um sistema de gerenciamento de reservas desenvolvido para a UFAM, pe
 Antes de começar, certifique-se de ter instalado:  
 - [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)  
 - [MySQL](https://dev.mysql.com/downloads/) 
+- [Node.js](https://nodejs.org/) 
 
 no codigo_fonte/BookItApi/appsettings.json coloque o seu user e senha do MySQL, depois entre no terminal dentro da pasta do projeto BookIt, utilize esse comando para atualizar o database:
 
@@ -60,9 +61,17 @@ Posteriormente utilize para rodar o programa:
 
 ``dotnet run``
 
-Depois acesse essa URL para acessar a API da aplicação:
+Para acessar a API:
 
 ``http://localhost:5092/swagger/index.html``
+
+Agora entre na pasta codigo_fonte/bookit_frontend no  terminal e execute o seguinte comando:
+
+``npm start``
+
+Para acessar a página web:
+
+``http://localhost:3000/login``
 
 
 

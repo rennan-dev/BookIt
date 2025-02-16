@@ -1,14 +1,20 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace BookItApi.Dtos.Servidor;
+namespace BookItApi.Dtos.User;
 
 /// <summary>
-/// Representa os dados necessários para criar um novo servidor no sistema.
+/// Representa os dados necessários para criar um novo usuário no sistema.
 /// </summary>
-public class CreateServidorDto {
+public class CreateUserDto {
 
     /// <summary>
-    /// Obtém ou define o SIAPE do servidor.
+    /// Indica se o usuário é admin ou servidor.
+    /// </summary>
+    [Required(ErrorMessage = "O usuário precisa ser definido como admin ou não")]
+    public bool IsAdmin { get; set; } = false;
+
+    /// <summary>
+    /// Obtém ou define o SIAPE do usuário.
     /// O SIAPE deve ter exatamente 6 dígitos numéricos.
     /// </summary>
     [Required(ErrorMessage = "O SIAPE é obrigatório.")]
@@ -16,7 +22,7 @@ public class CreateServidorDto {
     public string Siape { get; set; } = string.Empty;
 
     /// <summary>
-    /// Obtém ou define o CPF do servidor.
+    /// Obtém ou define o CPF do usuário.
     /// O CPF deve estar no formato 000.000.000-00.
     /// </summary>
     [Required(ErrorMessage = "O CPF é obrigatório.")]
@@ -24,8 +30,7 @@ public class CreateServidorDto {
     public string Cpf { get; set; } = string.Empty;
 
     /// <summary>
-    /// Obtém ou define o nome completo do servidor.
-    /// Exemplo: "Rennan Alves".
+    /// Obtém ou define o nome completo do usuário.
     /// O nome completo não pode ter mais de 100 caracteres.
     /// </summary>
     [Required(ErrorMessage = "O nome completo é obrigatório.")]
@@ -33,7 +38,7 @@ public class CreateServidorDto {
     public string Name { get; set; } = string.Empty;
 
     /// <summary>
-    /// Obtém ou define o e-mail do servidor.
+    /// Obtém ou define o e-mail do usuário.
     /// O e-mail deve ser válido e não pode ter mais de 120 caracteres.
     /// </summary>
     [Required(ErrorMessage = "O e-mail é obrigatório.")]
@@ -42,7 +47,7 @@ public class CreateServidorDto {
     public string Email { get; set; } = string.Empty;
 
     /// <summary>
-    /// Obtém ou define o número de celular do servidor.
+    /// Obtém ou define o número de celular do usuário.
     /// O celular deve estar no formato (00) 00000-0000.
     /// </summary>
     [Required(ErrorMessage = "O celular é obrigatório.")]
@@ -50,7 +55,14 @@ public class CreateServidorDto {
     public string PhoneNumber { get; set; } = string.Empty;
 
     /// <summary>
-    /// Obtém ou define a senha do servidor.
+    /// Indica se o servidor foi aprovado pelo administrador para utilizar o sistema.
+    /// Só será verdadeiro quando o administrador aprovar o servidor.
+    /// </summary>
+    [Required(ErrorMessage = "O servidor precisa ser aprovado para acessar o sistema")]
+    public bool IsAprovado { get; set; } = false;
+
+    /// <summary>
+    /// Obtém ou define a senha do usuário.
     /// A senha deve ter no mínimo 8 caracteres e no máximo 120 caracteres.
     /// </summary>
     [Required(ErrorMessage = "A senha é obrigatória.")]
@@ -60,7 +72,7 @@ public class CreateServidorDto {
     public string Password { get; set; } = string.Empty;
 
     /// <summary>
-    /// Obtém ou define a confirmação de senha do servidor.
+    /// Obtém ou define a confirmação de senha do usuário.
     /// A confirmação de senha deve ser igual à senha fornecida em "Password".
     /// </summary>
     [Required(ErrorMessage = "A confirmação de senha é obrigatória.")]
