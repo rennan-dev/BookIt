@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Reservas.css';  // Importando o arquivo CSS
+import './Reservas.css';  
 
 const Reservas = () => {
   const [month, setMonth] = useState(new Date().getMonth());
@@ -72,7 +72,6 @@ const Reservas = () => {
           <label className="ambiente-label">
             Ambiente:
             <select value={selectedAmbiente} onChange={handleAmbienteChange}>
-              <option value="">Selecione um ambiente</option>
               {ambientes.map((ambiente, index) => (
                 <option key={index} value={ambiente}>{ambiente}</option>
               ))}

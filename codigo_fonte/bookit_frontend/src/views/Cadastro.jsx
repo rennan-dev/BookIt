@@ -12,7 +12,6 @@ const Cadastro = () => {
   const [rePassword, setRePassword] = useState("");
   const navigate = useNavigate();
 
-  // Função para formatar CPF automaticamente
   const handleCpfChange = (e) => {
     let value = e.target.value.replace(/\D/g, "");
     value = value.replace(/^(\d{3})(\d)/, "$1.$2");
@@ -21,7 +20,6 @@ const Cadastro = () => {
     setCpf(value);
   };
 
-  // Função para formatar telefone automaticamente
   const handlePhoneChange = (e) => {
     let value = e.target.value.replace(/\D/g, "");
     value = value.replace(/^(\d{2})(\d)/g, "($1) $2");
@@ -33,7 +31,7 @@ const Cadastro = () => {
 
     const handleSenhaChange = (event) => {
         setPassword(event.target.value);
-        setSenhaErro(''); // Limpa o erro enquanto o usuário digita
+        setSenhaErro(''); 
 
         if (!validatePassword(event.target.value)) {
             setSenhaErro('mínimo 8 caracteres, 1 maiúscula, 1 minúscula, 1 número e 1 caractere especial');

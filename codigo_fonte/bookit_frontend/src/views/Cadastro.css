@@ -107,7 +107,7 @@
 }
 
 .cadastro-form-fieldset .senha-error-active {
-    display: block; /* Exibe o erro quando a senha é inválida */
+    display: block; 
 }
 
 
