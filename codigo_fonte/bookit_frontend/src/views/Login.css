@@ -1,0 +1,138 @@
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+    justify-content: center;
+    height: 100vh; 
+    width: 100%;
+    padding-left: 25%;
+}
+
+.login-title {
+    font-size:28pt;
+    color: #35591E;
+    font-family: 'Istok Web', sans-serif;
+    font-weight: 400;
+    text-align: left; 
+    margin-bottom: -10px; 
+    width: 50%; 
+}
+
+.login-fieldset {
+    border: 2px solid #35591E;
+    padding: 10px;
+    background-color: white;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+  
+.login-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+  
+.login-logo {
+    width: 140px;
+    margin-right: -60px
+}
+  
+.login-box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%; 
+    gap: 10px; 
+    box-sizing: border-box; 
+}
+
+.login-box h2 {
+    color: #35591E;
+    font-family: 'Istok Web', sans-serif;
+    font-weight: 400;
+    margin-bottom: -10px; 
+    margin-left: 40px;
+    font-size: 15pt;
+}
+
+.login-form-fieldset {
+    border: 2px solid #35591E;
+    padding: 15px;
+    background-color: rgba(27, 82, 29, 0.15); 
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; 
+    width: 90%; 
+    box-sizing: border-box; 
+    margin-left: auto;
+}
+
+.login-form-fieldset div {
+    margin: 10px;
+    display: flex;
+    align-items: center; 
+    gap: 10px; 
+}
+
+.login-form-fieldset label {
+    font-weight: bold;
+    white-space: nowrap;
+    width: 20%; 
+    color: #35591E;
+    font-family: 'Istok Web', sans-serif;
+    font-size: 13pt;
+    font-weight: 400;
+}
+
+.login-form-fieldset input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 70%; 
+    margin-left: auto;
+    cursor: text;
+}
+
+.login-button {
+    background-color: #35591E;
+    color: white;
+    font-family: 'Istok Web', sans-serif;
+    font-weight: 400;
+    font-size: 13pt;
+    padding: 5px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 30%;
+    margin-left: auto;
+    margin-right: 10px;
+    display: block;
+}
+
+.login-button:hover {
+    background-color: darkgreen;
+}
+
+.login-links {
+    margin-top: 0; 
+    width: 100%; 
+    text-align: right; 
+}
+
+.login-links a {
+    text-decoration: none;
+    color: #35591E;
+    font-size: 8pt;
+    border-bottom: 1px solid #35591E; 
+    padding-bottom: 5px; 
+    margin-left: 10px; 
+}
+
+.login-links a:hover {
+    text-decoration: none; 
+    color: rgb(129, 214, 0); 
+}
