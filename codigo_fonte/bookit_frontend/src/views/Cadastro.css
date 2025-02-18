@@ -1,0 +1,158 @@
+.cadastro-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+    justify-content: center;
+    height: 100vh; 
+    width: 100%;
+    padding-left: 25%;
+}
+
+.cadastro-title {
+    font-size:28pt;
+    color: #35591E;
+    font-family: 'Istok Web', sans-serif;
+    font-weight: 400;
+    text-align: left; 
+    margin-bottom: -5px;
+    width: 50%; 
+}
+
+.cadastro-fieldset {
+    border: 2px solid #35591E;
+    padding: 10px;
+    background-color: white;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+}
+  
+.cadastro-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+  
+.cadastro-logo {
+    width: 140px;
+    margin-right: -60px
+}
+  
+.cadastro-box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%; 
+    gap: 10px; 
+    box-sizing: border-box; 
+}
+
+.cadastro-box h2 {
+    color: #35591E;
+    font-family: 'Istok Web', sans-serif;
+    font-weight: 400;
+    margin-bottom: -10px; 
+    margin-left: 60px;
+    font-size: 15pt;
+}
+
+.cadastro-form-fieldset {
+    border: 2px solid #35591E;
+    padding: 15px;
+    background-color: rgba(27, 82, 29, 0.15); 
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; 
+    width: 90%; 
+    box-sizing: border-box; 
+    margin-left: auto;
+}
+
+.cadastro-form-fieldset div {
+    margin: 10px;
+    display: flex;
+    align-items: center; 
+    gap: 10px; 
+}
+
+.cadastro-form-fieldset label {
+    font-weight: bold;
+    white-space: nowrap;
+    width: 10%; 
+    color: #35591E;
+    font-family: 'Istok Web', sans-serif;
+    font-size: 11pt;
+    font-weight: 400;
+}
+
+.cadastro-form-fieldset input {
+    padding: 2px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 70%; 
+    margin-left: auto;
+    font-size: 11pt;
+    cursor: text;
+}
+
+.cadastro-error {
+    color: rgb(212, 7, 7);
+    font-size: 7pt;
+    margin-bottom: -5px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+}
+
+.cadastro-form-fieldset .senha-error-active {
+    display: block; /* Exibe o erro quando a senha é inválida */
+}
+
+
+.cadastro-button {
+    background-color: #35591E;
+    color: white;
+    font-family: 'Istok Web', sans-serif;
+    font-weight: 400;
+    font-size: 13pt;
+    padding: 5px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 30%;
+    margin-left: auto;
+    margin-right: 10px;
+    display: block;
+}
+
+.cadastro-button:hover {
+    background-color: darkgreen;
+}
+
+.cadastro-links {
+    margin-top: 0; 
+    width: 100%; 
+    text-align: right; 
+}
+
+.cadastro-links a {
+    text-decoration: none;
+    color: #35591E;
+    font-size: 8pt;
+    border-bottom: 1px solid #35591E; 
+    padding-bottom: 5px; 
+    margin-left: 10px; 
+}
+
+.cadastro-links a:hover {
+    text-decoration: none; 
+    color: rgb(129, 214, 0); 
+}
+
+.cadastro-links span {
+    text-decoration: none;
+    color: #35591E;
+    font-size: 8pt;
+}
