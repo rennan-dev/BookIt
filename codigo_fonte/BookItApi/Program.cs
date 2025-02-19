@@ -5,6 +5,11 @@ using Microsoft.OpenApi.Models;
 using BookItApi.Services;
 using BookItApi.Data;
 using BookItApi.Models;
+using BookItApi.Authorization;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +24,28 @@ builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<User
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<TokenService>();
 
+builder.Services.AddAuthentication(options => {
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+    options.TokenValidationParameters = new TokenValidationParameters {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(
+            Encoding.UTF8.GetBytes("2323R02N902FI03908N038J31093N10ND2049NASIDPOM0J923")),
+        ValidateAudience = false,
+        ValidateIssuer = false,
+        ClockSkew = TimeSpan.Zero
+    }
+);
+
+//verificação do usuário se é admin ou servidor
+builder.Services.AddAuthorization(options => {
+    options.AddPolicy("AdminOnly", policy => 
+        //policy.RequireClaim("IsAdmin", "True"));
+        policy.AddRequirements(new AdminOnly(true))
+    );
+});
+
+builder.Services.AddSingleton<IAuthorizationHandler, AdminAuthorization>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -53,6 +80,7 @@ app.UseHttpsRedirection();
 
 app.UseCors("AllowReactApp"); //conexao front end
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

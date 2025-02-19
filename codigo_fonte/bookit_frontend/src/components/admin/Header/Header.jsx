@@ -37,7 +37,6 @@ const Header = () => {
       <nav className="navbar" id="navbar">
         <a href="#reservas">Reservas</a>
         <a href="#cadastros-pendentes">Cadastros Pendentes</a>
-        <a href="#cadastra-usuario">Cadastrar Usuário</a>
         <a href="#busca-usuario">Buscar Usuário</a>
         <a href="#logout" onClick={handleLogout}>Sair</a>
       </nav>

@@ -104,4 +104,18 @@ public class UserService {
     public async Task Logout() {
         await _signInManager.SignOutAsync();
     }
+
+    /// <summary>
+    /// Obtém todos os usuários que ainda não foram aprovados.
+    /// </summary>
+    /// <returns>Uma lista de DTOs contendo apenas Nome e CPF de usuários não aprovados.</returns>
+    public async Task<List<CadastroPendenteDto>> ObterUsuariosNaoAprovadosAsync() {
+        return await _userManager.Users
+                                .Where(u => !u.IsAprovado)
+                                .Select(u => new CadastroPendenteDto {
+                                    Nome = u.Name,
+                                    Cpf = u.Cpf
+                                })
+                                .ToListAsync();
+    }
 }
