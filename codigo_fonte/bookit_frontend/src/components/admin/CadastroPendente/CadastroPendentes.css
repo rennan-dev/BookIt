@@ -1,0 +1,50 @@
+.cadastro-pendentes {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 0 auto;
+}
+  
+  .cadastro-pendentes h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+  
+  .cadastro-pendentes table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+  
+  .cadastro-pendentes table th,
+  .cadastro-pendentes table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+  
+  .cadastro-pendentes table th {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+  
+  .cadastro-pendentes table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+  
+  .cadastro-pendentes table tr:hover {
+    background-color: #ddd;
+}
+  
+  .cadastro-pendentes p {
+    text-align: center;
+    font-size: 18px;
+    color: #666;
+    margin-top: 20px;
+}
