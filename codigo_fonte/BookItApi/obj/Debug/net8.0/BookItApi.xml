@@ -90,6 +90,15 @@
             <response code="200">Usuário aprovado com sucesso ou já está aprovado.</response>
             <response code="404">Caso o usuário não seja encontrado.</response>
         </member>
+        <member name="M:BookItApi.Controllers.UserController.ExcluirUsuario(System.String)">
+            <summary>
+            Exclui um usuário com base no CPF, verificando se ele é administrador.
+            </summary>
+            <param name="cpf">CPF do usuário a ser excluído.</param>
+            <returns>Task</returns>
+            <response code="200">Usuário excluído com sucesso ou não pode ser excluído.</response>
+            <response code="404">Caso o usuário não seja encontrado.</response>
+        </member>
         <member name="T:BookItApi.Data.UserDbContext">
             <summary>
             Representa o contexto de dados para a aplicação, que gerencia as entidades de admin e servidor, 

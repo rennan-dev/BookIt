@@ -106,4 +106,24 @@ public class UserController : ControllerBase {
             return NotFound(ex.Message);
         }
     }
+
+    /// <summary>
+    /// Exclui um usuário com base no CPF, verificando se ele é administrador.
+    /// </summary>
+    /// <param name="cpf">CPF do usuário a ser excluído.</param>
+    /// <returns>Task</returns>
+    /// <response code="200">Usuário excluído com sucesso ou não pode ser excluído.</response>
+    /// <response code="404">Caso o usuário não seja encontrado.</response>
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [HttpDelete("excluir/{cpf}")]
+    [Authorize(Policy = "AdminOnly")]
+    public async Task<IActionResult> ExcluirUsuario(string cpf) {
+        try {
+            var resultado = await _userService.ExcluirUsuarioAsync(cpf);
+            return Ok(resultado); 
+        }catch(Exception ex) {
+            return NotFound(ex.Message);
+        }
+    }
 }
