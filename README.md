@@ -53,6 +53,10 @@ Antes de começar, certifique-se de ter instalado:
 - [MySQL](https://dev.mysql.com/downloads/) 
 - [Node.js](https://nodejs.org/) 
 
+utilize esse código para poder utilizar o comando ef no seu computador
+
+``dotnet tool install --global dotnet-ef``
+
 no codigo_fonte/BookItApi/appsettings.json coloque o seu user e senha do MySQL, depois entre no terminal dentro da pasta do projeto BookIt, utilize esse comando para atualizar o database:
 
 ``dotnet ef database update``
@@ -67,6 +71,10 @@ Para acessar a API:
 
 Agora entre na pasta codigo_fonte/bookit_frontend no  terminal e execute o seguinte comando:
 
+``npm install react-router-dom``
+
+para executar o projeto, execute:
+
 ``npm start``
 
 Para acessar a página web:
@@ -79,6 +87,4 @@ Para acessar a página web:
 - **Frontend:** React
 - **Backend:** C#
 - **Banco de Dados:** MySQL
-- **Mensageria:** RabbitMQ
 - **Autenticação:** JWT (JSON Web Tokens)
-- **Containerização:** Docker

@@ -104,4 +104,66 @@ public class UserService {
     public async Task Logout() {
         await _signInManager.SignOutAsync();
     }
+
+    /// <summary>
+    /// Obtém todos os usuários que ainda não foram aprovados.
+    /// </summary>
+    /// <returns>Uma lista de DTOs contendo apenas Nome e CPF de usuários não aprovados.</returns>
+    public async Task<List<CadastroPendenteDto>> ObterUsuariosNaoAprovadosAsync() {
+        return await _userManager.Users.Where(u => !u.IsAprovado)
+                                .Select(u => new CadastroPendenteDto {
+                                    Nome = u.Name,
+                                    Cpf = u.Cpf
+                                })
+                                .ToListAsync();
+    }
+
+    /// <summary>
+    /// Aprova um usuário, alterando o status de IsAprovado para true.
+    /// </summary>
+    /// <param name="cpf">CPF do usuário a ser aprovado.</param>
+    /// <returns>Task</returns>
+    public async Task<string> AprovarUsuarioAsync(string cpf) {
+        var usuario = await _userManager.Users.FirstOrDefaultAsync(u => u.Cpf == cpf);
+
+        if(usuario == null) {
+            throw new Exception("Usuário não encontrado.");
+        }
+        if(usuario.IsAprovado) {
+            return "Usuário já está aprovado.";
+        }
+
+        usuario.IsAprovado = true;
+        await _userManager.UpdateAsync(usuario);
+        return "Usuário aprovado com sucesso.";
+    }
+
+    /// <summary>
+    /// Exclui um usuário pelo CPF, verificando se o usuário não é administrador.
+    /// </summary>
+    /// <param name="cpf">CPF do usuário a ser excluído.</param>
+    /// <returns>Task</returns>
+    public async Task<string> ExcluirUsuarioAsync(string cpf) {
+        var usuario = await _userManager.Users.FirstOrDefaultAsync(u => u.Cpf == cpf);
+
+        if(usuario == null) {
+            throw new Exception("Usuário não encontrado.");
+        }
+        
+        //verifica se o usuário é administrador
+        var isAdminClaim = await _userManager.GetClaimsAsync(usuario);
+        var isAdmin = isAdminClaim.Any(c => c.Type == "IsAdmin" && c.Value == "True");
+        if(isAdmin) {
+            return "Não é possível excluir um usuário administrador.";
+        }
+
+        //exclui o usuário
+        var result = await _userManager.DeleteAsync(usuario);
+
+        if(!result.Succeeded) {
+            throw new Exception("Erro ao excluir o usuário.");
+        }
+
+        return "Usuário excluído com sucesso.";
+    }
 }

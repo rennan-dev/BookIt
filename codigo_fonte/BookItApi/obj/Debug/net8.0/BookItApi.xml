@@ -4,6 +4,35 @@
         <name>BookItApi</name>
     </assembly>
     <members>
+        <member name="T:BookItApi.Authorization.AdminAuthorization">
+            <summary>
+            Handler de autorização para verificar se o usuário é um administrador.
+            </summary>
+        </member>
+        <member name="M:BookItApi.Authorization.AdminAuthorization.HandleRequirementAsync(Microsoft.AspNetCore.Authorization.AuthorizationHandlerContext,BookItApi.Authorization.AdminOnly)">
+            <summary>
+            Processa o requisito de autorização para verificar se o usuário tem a claim 'IsAdmin' como 'True'.
+            </summary>
+            <param name="context">O contexto da autorização, que contém o usuário e as informações necessárias para autorização.</param>
+            <param name="requirement">O requisito de autorização que define o critério para a autorização.</param>
+            <returns>Uma tarefa que representa a operação assíncrona.</returns>
+        </member>
+        <member name="T:BookItApi.Authorization.AdminOnly">
+            <summary>
+            Requisito de autorização que verifica se o usuário é um administrador.
+            </summary>
+        </member>
+        <member name="M:BookItApi.Authorization.AdminOnly.#ctor(System.Boolean)">
+            <summary>
+            Construtor para definir o requisito de ser admin.
+            </summary>
+            <param name="isAdmin">Indica se o usuário deve ser um administrador.</param>
+        </member>
+        <member name="P:BookItApi.Authorization.AdminOnly.IsAdmin">
+            <summary>
+            Indica se o requisito é que o usuário seja um administrador.
+            </summary>
+        </member>
         <member name="T:BookItApi.Controllers.UserController">
             <summary>
             Controlador responsável por gerenciar as operações dos usuários no sistema,
@@ -44,6 +73,32 @@
             </returns>
             <response code="200">Caso o usuário se deslogue com sucesso</response>
         </member>
+        <member name="M:BookItApi.Controllers.UserController.ObterUsuariosNaoAprovados">
+            <summary>
+            Obtém todos os usuários que ainda não foram aprovados.
+            </summary>
+            <returns>Lista de usuários não aprovados.</returns>
+            <response code="200">Retorna a lista de usuários não aprovados</response>
+            <response code="404">Caso não haja usuários não aprovados</response>
+        </member>
+        <member name="M:BookItApi.Controllers.UserController.AprovarUsuario(System.String)">
+            <summary>
+            Aprova um usuário com base no CPF.
+            </summary>
+            <param name="cpf">CPF do usuário a ser aprovado.</param>
+            <returns>Task</returns>
+            <response code="200">Usuário aprovado com sucesso ou já está aprovado.</response>
+            <response code="404">Caso o usuário não seja encontrado.</response>
+        </member>
+        <member name="M:BookItApi.Controllers.UserController.ExcluirUsuario(System.String)">
+            <summary>
+            Exclui um usuário com base no CPF, verificando se ele é administrador.
+            </summary>
+            <param name="cpf">CPF do usuário a ser excluído.</param>
+            <returns>Task</returns>
+            <response code="200">Usuário excluído com sucesso ou não pode ser excluído.</response>
+            <response code="404">Caso o usuário não seja encontrado.</response>
+        </member>
         <member name="T:BookItApi.Data.UserDbContext">
             <summary>
             Representa o contexto de dados para a aplicação, que gerencia as entidades de admin e servidor, 
@@ -55,6 +110,21 @@
             Inicializa uma nova instância do contexto, configurando as opções passadas.
             </summary>
             <param name="opts">As opções de configuração do contexto do banco de dados.</param>    
+        </member>
+        <member name="T:BookItApi.Dtos.User.CadastroPendenteDto">
+            <summary>
+            Representa os dados de um usuário no sistema com o cadastro não confirmado.
+            </summary>
+        </member>
+        <member name="P:BookItApi.Dtos.User.CadastroPendenteDto.Nome">
+            <summary>
+            Obtém o nome completo do usuário.
+            </summary>
+        </member>
+        <member name="P:BookItApi.Dtos.User.CadastroPendenteDto.Cpf">
+            <summary>
+            Obtém o CPF do usuário.
+            </summary>
         </member>
         <member name="T:BookItApi.Dtos.User.CreateUserDto">
             <summary>
@@ -285,6 +355,19 @@
             Realiza o logout do usuário.
             </summary>
             <returns>Retorna um Task representando a operação de logout.</returns>
+        </member>
+        <member name="M:BookItApi.Services.UserService.ObterUsuariosNaoAprovadosAsync">
+            <summary>
+            Obtém todos os usuários que ainda não foram aprovados.
+            </summary>
+            <returns>Uma lista de DTOs contendo apenas Nome e CPF de usuários não aprovados.</returns>
+        </member>
+        <member name="M:BookItApi.Services.UserService.AprovarUsuarioAsync(System.String)">
+            <summary>
+            Aprova um usuário, alterando o status de IsAprovado para true.
+            </summary>
+            <param name="cpf">CPF do usuário a ser aprovado.</param>
+            <returns>Task</returns>
         </member>
     </members>
 </doc>

@@ -7,6 +7,14 @@ const Login = () => {
   const [senha, setSenha] = useState("");
   const navigate = useNavigate();
 
+  const handleCpfChange = (e) => {
+    let value = e.target.value.replace(/\D/g, "");
+    value = value.replace(/^(\d{3})(\d)/, "$1.$2");
+    value = value.replace(/^(\d{3})\.(\d{3})(\d)/, "$1.$2.$3");
+    value = value.replace(/\.(\d{3})(\d)/, ".$1-$2");
+    setCpf(value);
+  };
+
   const decodeBase64Url = (input) => {
     let base64 = input.replace(/-/g, "+").replace(/_/g, "/");
     while (base64.length % 4 !== 0) {
@@ -81,7 +89,8 @@ const Login = () => {
                     id="cpf"
                     name="cpf"
                     value={cpf}
-                    onChange={(e) => setCpf(e.target.value)}
+                    onChange={handleCpfChange}
+                    maxLength={14}
                   />
                 </div>
                 <div>
