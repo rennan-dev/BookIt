@@ -110,12 +110,31 @@ public class UserService {
     /// </summary>
     /// <returns>Uma lista de DTOs contendo apenas Nome e CPF de usuários não aprovados.</returns>
     public async Task<List<CadastroPendenteDto>> ObterUsuariosNaoAprovadosAsync() {
-        return await _userManager.Users
-                                .Where(u => !u.IsAprovado)
+        return await _userManager.Users.Where(u => !u.IsAprovado)
                                 .Select(u => new CadastroPendenteDto {
                                     Nome = u.Name,
                                     Cpf = u.Cpf
                                 })
                                 .ToListAsync();
+    }
+
+    /// <summary>
+    /// Aprova um usuário, alterando o status de IsAprovado para true.
+    /// </summary>
+    /// <param name="cpf">CPF do usuário a ser aprovado.</param>
+    /// <returns>Task</returns>
+    public async Task<string> AprovarUsuarioAsync(string cpf) {
+        var usuario = await _userManager.Users.FirstOrDefaultAsync(u => u.Cpf == cpf);
+
+        if(usuario == null) {
+            throw new Exception("Usuário não encontrado.");
+        }
+        if(usuario.IsAprovado) {
+            return "Usuário já está aprovado.";
+        }
+
+        usuario.IsAprovado = true;
+        await _userManager.UpdateAsync(usuario);
+        return "Usuário aprovado com sucesso.";
     }
 }

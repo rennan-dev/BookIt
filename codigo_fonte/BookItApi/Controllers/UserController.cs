@@ -86,4 +86,24 @@ public class UserController : ControllerBase {
 
         return Ok(usuarios);
     }
+
+    /// <summary>
+    /// Aprova um usuário com base no CPF.
+    /// </summary>
+    /// <param name="cpf">CPF do usuário a ser aprovado.</param>
+    /// <returns>Task</returns>
+    /// <response code="200">Usuário aprovado com sucesso ou já está aprovado.</response>
+    /// <response code="404">Caso o usuário não seja encontrado.</response>
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [HttpPost("aprovar/{cpf}")]
+    [Authorize(Policy = "AdminOnly")]
+    public async Task<IActionResult> AprovarUsuario(string cpf) {
+        try {
+            var resultado = await _userService.AprovarUsuarioAsync(cpf);
+            return Ok(resultado); 
+        }catch(Exception ex) {
+            return NotFound(ex.Message);
+        }
+    }
 }

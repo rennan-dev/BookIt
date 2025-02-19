@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "uxu5bS62KjI=",
+  "dgSpecHash": "JVsw5kWDw6w=",
   "success": true,
-  "projectFilePath": "C:\\Users\\19886\\Documents\\Rennan\\Git\\BookIt\\codigo_fonte\\BookItApi\\BookItApi.csproj",
+  "projectFilePath": "C:\\Users\\19886\\Documents\\Rennan\\BookIt\\codigo_fonte\\BookItApi\\BookItApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\19886\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\19886\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

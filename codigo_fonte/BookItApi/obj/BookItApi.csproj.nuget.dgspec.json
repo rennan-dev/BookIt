@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\19886\\Documents\\Rennan\\Git\\BookIt\\codigo_fonte\\BookItApi\\BookItApi.csproj": {}
+    "C:\\Users\\19886\\Documents\\Rennan\\BookIt\\codigo_fonte\\BookItApi\\BookItApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\19886\\Documents\\Rennan\\Git\\BookIt\\codigo_fonte\\BookItApi\\BookItApi.csproj": {
+    "C:\\Users\\19886\\Documents\\Rennan\\BookIt\\codigo_fonte\\BookItApi\\BookItApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\19886\\Documents\\Rennan\\Git\\BookIt\\codigo_fonte\\BookItApi\\BookItApi.csproj",
+        "projectUniqueName": "C:\\Users\\19886\\Documents\\Rennan\\BookIt\\codigo_fonte\\BookItApi\\BookItApi.csproj",
         "projectName": "BookItApi",
-        "projectPath": "C:\\Users\\19886\\Documents\\Rennan\\Git\\BookIt\\codigo_fonte\\BookItApi\\BookItApi.csproj",
+        "projectPath": "C:\\Users\\19886\\Documents\\Rennan\\BookIt\\codigo_fonte\\BookItApi\\BookItApi.csproj",
         "packagesPath": "C:\\Users\\19886\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\19886\\Documents\\Rennan\\Git\\BookIt\\codigo_fonte\\BookItApi\\obj\\",
+        "outputPath": "C:\\Users\\19886\\Documents\\Rennan\\BookIt\\codigo_fonte\\BookItApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\19886\\AppData\\Roaming\\NuGet\\NuGet.Config"

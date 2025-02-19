@@ -81,6 +81,15 @@
             <response code="200">Retorna a lista de usuários não aprovados</response>
             <response code="404">Caso não haja usuários não aprovados</response>
         </member>
+        <member name="M:BookItApi.Controllers.UserController.AprovarUsuario(System.String)">
+            <summary>
+            Aprova um usuário com base no CPF.
+            </summary>
+            <param name="cpf">CPF do usuário a ser aprovado.</param>
+            <returns>Task</returns>
+            <response code="200">Usuário aprovado com sucesso ou já está aprovado.</response>
+            <response code="404">Caso o usuário não seja encontrado.</response>
+        </member>
         <member name="T:BookItApi.Data.UserDbContext">
             <summary>
             Representa o contexto de dados para a aplicação, que gerencia as entidades de admin e servidor, 
@@ -343,6 +352,13 @@
             Obtém todos os usuários que ainda não foram aprovados.
             </summary>
             <returns>Uma lista de DTOs contendo apenas Nome e CPF de usuários não aprovados.</returns>
+        </member>
+        <member name="M:BookItApi.Services.UserService.AprovarUsuarioAsync(System.String)">
+            <summary>
+            Aprova um usuário, alterando o status de IsAprovado para true.
+            </summary>
+            <param name="cpf">CPF do usuário a ser aprovado.</param>
+            <returns>Task</returns>
         </member>
     </members>
 </doc>
