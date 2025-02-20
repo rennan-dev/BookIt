@@ -25,6 +25,7 @@ body {
   --second-bg-color: #001005;
   --text-color: white;
   --main-color: #35591E;
+  --highlight-color: #0f6d02; 
 }
 
 ::-webkit-scrollbar {

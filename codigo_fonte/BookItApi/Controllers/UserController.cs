@@ -109,6 +109,47 @@ public class UserController : ControllerBase {
     }
 
     /// <summary>
+    /// Obtém todos os usuários que já foram aprovados.
+    /// </summary>
+    /// <returns>Lista de usuários aprovados.</returns>
+    /// <response code="200">Retorna a lista de usuários aprovados</response>
+    /// <response code="404">Caso não haja usuários aprovados</response>
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [HttpGet("servidores")]
+    [Authorize(Policy = "AdminOnly")]
+    public async Task<IActionResult> ObterUsuariosAprovados() {
+        var usuarios = await _userService.ObterUsuariosAprovadosAsync();
+
+        if(usuarios == null || usuarios.Count == 0) {
+            return NotFound("Nenhum usuário aprovado encontrado.");
+        }
+
+        return Ok(usuarios);
+    }
+
+    /// <summary>
+    /// Obtém um usuário específico que já foi aprovado, utilizando o CPF fornecido.
+    /// </summary>
+    /// <param name="cpf">O CPF do usuário a ser buscado.</param>
+    /// <returns>Os dados do usuário aprovado.</returns>
+    /// <response code="200">Retorna os dados do usuário aprovado</response>
+    /// <response code="404">Caso o usuário não seja encontrado</response>
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [HttpGet("servidores/{cpf}")]
+    [Authorize(Policy = "AdminOnly")]
+    public async Task<IActionResult> ObterUsuarioAprovadoPorCpf(string cpf) {
+        var usuario = await _userService.ObterUsuarioAprovadoPorCpfAsync(cpf);
+
+        if(usuario == null) {
+            return NotFound($"Nenhum usuário aprovado encontrado com o CPF: {cpf}");
+        }
+
+        return Ok(usuario);
+    }
+
+    /// <summary>
     /// Aprova um usuário com base no CPF.
     /// </summary>
     /// <param name="cpf">CPF do usuário a ser aprovado.</param>

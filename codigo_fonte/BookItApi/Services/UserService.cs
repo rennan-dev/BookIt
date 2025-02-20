@@ -140,6 +140,40 @@ public class UserService {
     }
 
     /// <summary>
+    /// Obtém todos os usuários que já foram aprovados.
+    /// </summary>
+    /// <returns>Uma lista de DTOs contendo apenas Nome e CPF de usuários aprovados.</returns>
+    public async Task<List<CadastroPendenteDto>> ObterUsuariosAprovadosAsync() {
+        return await _userManager.Users.Where(u => u.IsAprovado && !u.IsAdmin)
+                                .Select(u => new CadastroPendenteDto {
+                                    Nome = u.Name,
+                                    Cpf = u.Cpf
+                                })
+                                .ToListAsync();
+    }
+
+    /// <summary>
+    /// Obtém um usuário específico que já foi aprovado pelo CPF informado.
+    /// </summary>
+    /// <param name="cpf">O CPF do usuário a ser buscado.</param>
+    /// <returns>Um DTO contendo os dados do usuário já aprovado ou nulo se não encontrado.</returns>
+    public async Task<ReadUserDto?> ObterUsuarioAprovadoPorCpfAsync(string cpf) {
+        return await _userManager.Users
+                                .Where(u => u.IsAprovado && u.Cpf == cpf && !u.IsAdmin)
+                                .Select(u => new ReadUserDto {
+                                    Id = u.Id,
+                                    IsAdmin = u.IsAdmin,
+                                    Name = u.Name,
+                                    Siape = u.Siape,
+                                    Cpf = u.Cpf,
+                                    Email = u.Email ?? string.Empty,
+                                    PhoneNumber = u.PhoneNumber ?? string.Empty,
+                                    IsAprovado = u.IsAprovado
+                                })
+                                .FirstOrDefaultAsync();
+    }
+
+    /// <summary>
     /// Aprova um usuário, alterando o status de IsAprovado para true.
     /// </summary>
     /// <param name="cpf">CPF do usuário a ser aprovado.</param>
