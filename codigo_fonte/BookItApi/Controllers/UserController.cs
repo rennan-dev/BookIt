@@ -88,6 +88,27 @@ public class UserController : ControllerBase {
     }
 
     /// <summary>
+    /// Obtém um usuário específico que ainda não foi aprovado, utilizando o CPF fornecido.
+    /// </summary>
+    /// <param name="cpf">O CPF do usuário a ser buscado.</param>
+    /// <returns>Os dados do usuário não aprovado.</returns>
+    /// <response code="200">Retorna os dados do usuário não aprovado</response>
+    /// <response code="404">Caso o usuário não seja encontrado</response>
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [HttpGet("pendentes/{cpf}")]
+    [Authorize(Policy = "AdminOnly")]
+    public async Task<IActionResult> ObterUsuarioNaoAprovadoPorCpf(string cpf) {
+        var usuario = await _userService.ObterUsuarioNaoAprovadoPorCpfAsync(cpf);
+
+        if(usuario == null) {
+            return NotFound($"Nenhum usuário pendente encontrado com o CPF: {cpf}");
+        }
+
+        return Ok(usuario);
+    }
+
+    /// <summary>
     /// Aprova um usuário com base no CPF.
     /// </summary>
     /// <param name="cpf">CPF do usuário a ser aprovado.</param>

@@ -81,6 +81,15 @@
             <response code="200">Retorna a lista de usuários não aprovados</response>
             <response code="404">Caso não haja usuários não aprovados</response>
         </member>
+        <member name="M:BookItApi.Controllers.UserController.ObterUsuarioNaoAprovadoPorCpf(System.String)">
+            <summary>
+            Obtém um usuário específico que ainda não foi aprovado, utilizando o CPF fornecido.
+            </summary>
+            <param name="cpf">O CPF do usuário a ser buscado.</param>
+            <returns>Os dados do usuário não aprovado.</returns>
+            <response code="200">Retorna os dados do usuário não aprovado</response>
+            <response code="404">Caso o usuário não seja encontrado</response>
+        </member>
         <member name="M:BookItApi.Controllers.UserController.AprovarUsuario(System.String)">
             <summary>
             Aprova um usuário com base no CPF.
@@ -362,11 +371,25 @@
             </summary>
             <returns>Uma lista de DTOs contendo apenas Nome e CPF de usuários não aprovados.</returns>
         </member>
+        <member name="M:BookItApi.Services.UserService.ObterUsuarioNaoAprovadoPorCpfAsync(System.String)">
+            <summary>
+            Obtém um usuário específico que ainda não foi aprovado pelo CPF informado.
+            </summary>
+            <param name="cpf">O CPF do usuário a ser buscado.</param>
+            <returns>Um DTO contendo os dados do usuário não aprovado ou nulo se não encontrado.</returns>
+        </member>
         <member name="M:BookItApi.Services.UserService.AprovarUsuarioAsync(System.String)">
             <summary>
             Aprova um usuário, alterando o status de IsAprovado para true.
             </summary>
             <param name="cpf">CPF do usuário a ser aprovado.</param>
+            <returns>Task</returns>
+        </member>
+        <member name="M:BookItApi.Services.UserService.ExcluirUsuarioAsync(System.String)">
+            <summary>
+            Exclui um usuário pelo CPF, verificando se o usuário não é administrador.
+            </summary>
+            <param name="cpf">CPF do usuário a ser excluído.</param>
             <returns>Task</returns>
         </member>
     </members>

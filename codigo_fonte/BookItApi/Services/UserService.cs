@@ -119,6 +119,27 @@ public class UserService {
     }
 
     /// <summary>
+    /// Obtém um usuário específico que ainda não foi aprovado pelo CPF informado.
+    /// </summary>
+    /// <param name="cpf">O CPF do usuário a ser buscado.</param>
+    /// <returns>Um DTO contendo os dados do usuário não aprovado ou nulo se não encontrado.</returns>
+    public async Task<ReadUserDto?> ObterUsuarioNaoAprovadoPorCpfAsync(string cpf) {
+        return await _userManager.Users
+                                .Where(u => !u.IsAprovado && u.Cpf == cpf)
+                                .Select(u => new ReadUserDto {
+                                    Id = u.Id,
+                                    IsAdmin = u.IsAdmin,
+                                    Name = u.Name,
+                                    Siape = u.Siape,
+                                    Cpf = u.Cpf,
+                                    Email = u.Email ?? string.Empty,
+                                    PhoneNumber = u.PhoneNumber ?? string.Empty,
+                                    IsAprovado = u.IsAprovado
+                                })
+                                .FirstOrDefaultAsync();
+    }
+
+    /// <summary>
     /// Aprova um usuário, alterando o status de IsAprovado para true.
     /// </summary>
     /// <param name="cpf">CPF do usuário a ser aprovado.</param>
