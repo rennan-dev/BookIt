@@ -10,34 +10,23 @@ const CadastroPendentes = () => {
     const fetchPendentes = async () => {
       try {
         const token = localStorage.getItem("token");
-        console.log("Token recuperado:", token); 
-
         const headers = {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         };
-
-        console.log("Enviando requisição com headers:", headers);
 
         const response = await fetch("http://localhost:5092/api/User/pendentes", {
           method: "GET",
           headers: headers,
         });
 
-        console.log("Status da resposta:", response.status);
-
         if (!response.ok) {
-          const errorText = await response.text();
-          console.error("Erro na resposta:", response.status, errorText);
-          throw new Error(`Erro ${response.status}: ${errorText}`);
+          throw new Error(`Erro ${response.status}: ${await response.text()}`);
         }
 
         const data = await response.json();
-        console.log("Dados recebidos:", data);
-
         setPendentes(data);
       } catch (error) {
-        console.error("Erro na requisição:", error);
         setError(error.message);
       } finally {
         setLoading(false);
@@ -47,30 +36,40 @@ const CadastroPendentes = () => {
     fetchPendentes();
   }, []);
 
-  if (loading) {
-    return <div>Carregando...</div>;
-  }
-
-  if (error) {
-    return <div>Erro: {error}</div>;
-  }
+  if (loading) return <div>Carregando...</div>;
+  if (error) return <div>Erro: {error}</div>;
 
   return (
-    <div className="cadastro-pendentes">
+    <div className="cadastro-container">
       <h1>Cadastros Pendentes</h1>
-      {pendentes.length > 0 ? (
-        <ul>
-          {pendentes.map((usuario) => (
-            <li key={usuario.id}>
-              <p>{usuario.nome}</p>
-              <p>{usuario.cpf}</p>
-              <p>Status: {usuario.status}</p>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>Não há cadastros pendentes.</p>
-      )}
+      <fieldset>
+        {pendentes.length > 0 ? (
+          <table>
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              {pendentes.map((usuario) => (
+                <tr key={usuario.id}>
+                  <td>{usuario.nome}</td>
+                  <td>{usuario.cpf}</td>
+                  <td>
+                    <button className="visualizar">Visualizar</button>
+                    <button className="aprovar">Aprovado</button>
+                    <button className="reprovar">Reprovado</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p>Não há cadastros pendentes.</p>
+        )}
+      </fieldset>
     </div>
   );
 };

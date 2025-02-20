@@ -1,50 +1,98 @@
-.cadastro-pendentes {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    max-width: 800px;
-    margin: 0 auto;
+.cadastro-container {
+  width: 80%;
+  margin: 0 0;
 }
-  
-  .cadastro-pendentes h1 {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 20px;
-    text-align: center;
+
+.cadastro-container h1 {
+  font-size: 19pt;
+  font-weight: 400;
+  color: var(--main-color);
 }
-  
-  .cadastro-pendentes table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
+
+.cadastro-container th,
+.cadastro-container td {
+  font-size: 11pt;
+  font-weight: 400;
+  color: var(--main-color);
 }
-  
-  .cadastro-pendentes table th,
-  .cadastro-pendentes table td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
+
+.cadastro-container fieldset {
+  border: 2px solid #35591E;
+  padding: 15px;
+  background-color: rgba(27, 82, 29, 0.15); 
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; 
+  width: 90%; 
+  justify-content: space-between;
+  box-sizing: border-box; 
 }
-  
-  .cadastro-pendentes table th {
-    background-color: #007bff;
-    color: white;
-    font-weight: bold;
+
+.cadastro-container table {
+  width: 100%;
+  border-collapse: collapse;
 }
-  
-  .cadastro-pendentes table tr:nth-child(even) {
-    background-color: #f2f2f2;
+
+.cadastro-container th {
+  background-color: rgba(0, 0, 0, 0); 
 }
-  
-  .cadastro-pendentes table tr:hover {
-    background-color: #ddd;
+
+.cadastro-container th:first-child,
+.cadastro-container td:first-child {
+  max-width: 130px;
 }
-  
-  .cadastro-pendentes p {
-    text-align: center;
-    font-size: 18px;
-    color: #666;
-    margin-top: 20px;
+
+.cadastro-container th:last-child {
+  visibility: hidden;
+}
+
+.cadastro-container th, 
+.cadastro-container td {
+  padding: 10px;
+  text-align: left;
+}
+
+.cadastro-container th {
+  border: none;
+}
+
+.cadastro-container td {
+  border: 1px solid #35591E;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+.cadastro-container th:first-child, 
+.cadastro-container td:first-child {
+  padding-left: 0;
+}
+
+.cadastro-container th:last-child, 
+.cadastro-container td:last-child {
+  padding-right: 0;
+}
+
+.cadastro-container button {
+  padding: 5px 10px;
+  margin: 0 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 11pt;
+  font-weight: 400;
+  border-radius: 5px;
+  color: white;
+}
+
+.cadastro-container .visualizar {
+  background-color: blue;
+}
+
+.cadastro-container .aprovar {
+  background-color: green;
+}
+
+.cadastro-container .reprovar {
+  background-color: red;
 }
