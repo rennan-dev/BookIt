@@ -90,6 +90,23 @@
             <response code="200">Retorna os dados do usuário não aprovado</response>
             <response code="404">Caso o usuário não seja encontrado</response>
         </member>
+        <member name="M:BookItApi.Controllers.UserController.ObterUsuariosAprovados">
+            <summary>
+            Obtém todos os usuários que já foram aprovados.
+            </summary>
+            <returns>Lista de usuários aprovados.</returns>
+            <response code="200">Retorna a lista de usuários aprovados</response>
+            <response code="404">Caso não haja usuários aprovados</response>
+        </member>
+        <member name="M:BookItApi.Controllers.UserController.ObterUsuarioAprovadoPorCpf(System.String)">
+            <summary>
+            Obtém um usuário específico que já foi aprovado, utilizando o CPF fornecido.
+            </summary>
+            <param name="cpf">O CPF do usuário a ser buscado.</param>
+            <returns>Os dados do usuário aprovado.</returns>
+            <response code="200">Retorna os dados do usuário aprovado</response>
+            <response code="404">Caso o usuário não seja encontrado</response>
+        </member>
         <member name="M:BookItApi.Controllers.UserController.AprovarUsuario(System.String)">
             <summary>
             Aprova um usuário com base no CPF.
@@ -377,6 +394,19 @@
             </summary>
             <param name="cpf">O CPF do usuário a ser buscado.</param>
             <returns>Um DTO contendo os dados do usuário não aprovado ou nulo se não encontrado.</returns>
+        </member>
+        <member name="M:BookItApi.Services.UserService.ObterUsuariosAprovadosAsync">
+            <summary>
+            Obtém todos os usuários que já foram aprovados.
+            </summary>
+            <returns>Uma lista de DTOs contendo apenas Nome e CPF de usuários aprovados.</returns>
+        </member>
+        <member name="M:BookItApi.Services.UserService.ObterUsuarioAprovadoPorCpfAsync(System.String)">
+            <summary>
+            Obtém um usuário específico que já foi aprovado pelo CPF informado.
+            </summary>
+            <param name="cpf">O CPF do usuário a ser buscado.</param>
+            <returns>Um DTO contendo os dados do usuário já aprovado ou nulo se não encontrado.</returns>
         </member>
         <member name="M:BookItApi.Services.UserService.AprovarUsuarioAsync(System.String)">
             <summary>
