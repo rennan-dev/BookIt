@@ -62,6 +62,32 @@ const UsuariosCadastrados = () => {
     }
   };
 
+  const excluirUsuario = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      };
+
+      const response = await fetch(`http://localhost:5092/api/User/excluir/${cpfParaExcluir}`, {
+        method: "DELETE",
+        headers: headers,
+      });
+
+      if(!response.ok) {
+        throw new Error(`Erro ${response.status}: ${await response.text()}`);
+      }
+
+      alert("Usuário deletado com sucesso!");
+
+      setServidores((prevPendentes) => prevPendentes.filter((user) => user.cpf !== cpfParaExcluir));
+      setCpfParaExcluir(null);
+    }catch(error) {
+      alert(`Erro ao excluir usuário: ${error.message}`);
+    }
+  };
+
   const confirmarExclusao = (cpf) => {
     setCpfParaExcluir(cpf);
   };
@@ -117,10 +143,8 @@ const UsuariosCadastrados = () => {
           <div className="modal-content">
             <h2>Confirmar Exclusão</h2>
             <p>Tem certeza que deseja excluir o usuário com o CPF: {cpfParaExcluir}?</p>
-            <button className="confirmar">Confirmar</button>
-            <button className="cancelar" onClick={cancelarExclusao}>
-              Cancelar
-            </button>
+            <button className="cancelar" onClick={cancelarExclusao}>Cancelar</button>
+            <button className="confirmar" onClick={excluirUsuario}>Confirmar</button>
           </div>
         </div>
       )}

@@ -1,101 +1,116 @@
-.cadastro-container {
-  width: 80%;
-  height: 10%;    
-  margin: auto 0;
+.cadastro-pendente-container {
+  width: 40%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center; 
+  margin: 0 auto;
 }
 /* verificar o height e o margin para quando tiver muitos e poucos cadastros pendentes*/
 
-.cadastro-container h1 {
+.cadastro-pendente-container h1 {
   font-size: 19pt;
   font-weight: 400;
   color: var(--main-color);
+  margin-bottom: -5px;
+  align-self: flex-start; 
 }
 
-.cadastro-container th,
-.cadastro-container td {
+.cadastro-pendente-container th,
+.cadastro-pendente-container td {
   font-size: 11pt;
   font-weight: 400;
   color: var(--main-color);
 }
 
-.cadastro-container fieldset {
+.cadastro-pendente-container fieldset {
   border: 2px solid #35591E;
   padding: 15px;
   background-color: rgba(27, 82, 29, 0.15); 
   border-radius: 5px;
   display: flex;
   flex-direction: column;
-  gap: 10px; 
-  width: 90%; 
-  justify-content: space-between;
-  box-sizing: border-box; 
+  gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.cadastro-container table {
+.cadastro-pendente-container table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.cadastro-container th {
+.cadastro-pendente-container th {
   background-color: rgba(0, 0, 0, 0); 
 }
 
-.cadastro-container th:first-child,
-.cadastro-container td:first-child {
+.cadastro-pendente-container th:first-child,
+.cadastro-pendente-container td:first-child {
   max-width: 130px;
 }
 
-.cadastro-container th:last-child {
+.cadastro-pendente-container th:last-child {
   visibility: hidden;
 }
 
-.cadastro-container th, 
-.cadastro-container td {
+.cadastro-pendente-container th, 
+.cadastro-pendente-container td {
   padding: 10px;
   text-align: left;
 }
 
-.cadastro-container th {
+.cadastro-pendente-container th {
   border: none;
 }
 
-.cadastro-container td {
+.cadastro-pendente-container td {
   border: 1px solid #35591E;
   border-top: none;
   border-left: none;
   border-right: none;
 }
 
-.cadastro-container th:first-child, 
-.cadastro-container td:first-child {
+.cadastro-pendente-container th:first-child, 
+.cadastro-pendente-container td:first-child {
   padding-left: 0;
 }
 
-.cadastro-container th:last-child, 
-.cadastro-container td:last-child {
+.cadastro-pendente-container th:nth-child(2),
+.cadastro-pendente-container td:nth-child(2) {
+  text-align: center; 
+}
+
+.cadastro-pendente-container th:nth-child(3),
+.cadastro-pendente-container td:nth-child(3) {
+  text-align: right; 
+}
+
+.cadastro-pendente-container th:last-child, 
+.cadastro-pendente-container td:last-child {
   padding-right: 0;
 }
 
-.cadastro-container button {
-  padding: 5px 10px;
+.cadastro-pendente-container button {
+  padding: 3px 7px;
   margin: 0 5px;
   border: none;
   cursor: pointer;
-  font-size: 11pt;
+  font-size: 10pt;
   font-weight: 400;
   border-radius: 5px;
   color: white;
 }
 
-.cadastro-container .visualizar {
+.cadastro-pendente-container .visualizar {
   background-color: blue;
 }
 
-.cadastro-container .aprovar {
+.cadastro-pendente-container .aprovar {
   background-color: green;
 }
 
-.cadastro-container .recusar {
+.cadastro-pendente-container .recusar {
   background-color: red;
 }
 

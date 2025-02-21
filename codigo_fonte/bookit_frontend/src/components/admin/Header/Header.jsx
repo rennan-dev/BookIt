@@ -5,7 +5,7 @@ import logo from "../../../assets/images/icet_logo.png";
 
 const Header = () => {
   const navigate = useNavigate();
-  const location = useLocation(); // Pega a rota atual
+  const location = useLocation(); 
 
   const handleLogout = async () => {
     try {
