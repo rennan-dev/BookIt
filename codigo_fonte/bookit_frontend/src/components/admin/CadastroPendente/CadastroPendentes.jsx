@@ -129,7 +129,7 @@ const CadastroPendentes = () => {
   if(error) return <div>Erro: {error}</div>;
 
   return (
-    <div className="cadastro-container">
+    <div className="cadastro-pendente-container">
       <h1>Cadastros Pendentes</h1>
       <fieldset>
         {pendentes.length > 0 ? (
@@ -171,11 +171,11 @@ const CadastroPendentes = () => {
           <div className="modal-content">
             <h2>Confirmar Exclusão</h2>
             <p>Tem certeza que deseja excluir o usuário com o CPF: {cpfParaExcluir}?</p>
-            <button className="confirmar" onClick={recusarUsuario}>
-              Confirmar
-            </button>
             <button className="cancelar" onClick={cancelarExclusao}>
               Cancelar
+            </button>
+            <button className="confirmar" onClick={recusarUsuario}>
+              Confirmar
             </button>
           </div>
         </div>

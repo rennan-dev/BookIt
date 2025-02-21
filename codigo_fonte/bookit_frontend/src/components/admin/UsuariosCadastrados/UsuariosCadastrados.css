@@ -1,5 +1,5 @@
 .servidores-container {
-    width: 50%;
+    width: 40%;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -79,13 +79,23 @@
 .servidores-container td:last-child {
     padding-right: 0;
 }
+
+.servidores-container th:nth-child(2),
+.servidores-container td:nth-child(2) {
+  text-align: center; 
+}
+
+.servidores-container th:nth-child(3),
+.servidores-container td:nth-child(3) {
+  text-align: right; 
+}
   
 .servidores-container button {
-    padding: 5px 10px;
+    padding: 3px 7px;
     margin: 0 5px;
     border: none;
     cursor: pointer;
-    font-size: 11pt;
+    font-size: 10pt;
     font-weight: 400;
     border-radius: 5px;
     color: white;

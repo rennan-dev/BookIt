@@ -1,7 +1,14 @@
 import React from "react";
+import Header from "../../components/servidor/Header/Header";
+import Reservas from "../../components/servidor/Reservas/Reservas";
 
 const HomeServidor = () => {
-  return <h1>Bem-vindo, Servidor</h1>;
+  return (
+    <div>
+      <Header />
+      <Reservas />
+    </div>
+  );
 };
 
 export default HomeServidor;

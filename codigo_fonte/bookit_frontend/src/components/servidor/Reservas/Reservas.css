@@ -1,0 +1,98 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+  
+.calendar-container {
+    text-align: left;
+    width: 60%;
+}
+  
+.reservas-title {
+    font-size: 19pt;
+    font-weight: 400;
+    color: var(--main-color);
+}
+  
+hr {
+    margin: 10px 0;
+    border: 0;
+    border-top: 1px solid var(--main-color);
+}
+  
+.select-container {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    font-size: 13pt;
+    font-weight: 400;
+    color: var(--main-color);
+}
+  
+select, input {
+    padding: 2px;
+    margin: 3px;
+    color: var(--main-color);
+    border: 1px solid var(--main-color);  
+    border-radius: 4px;  
+    text-align: center;  
+    cursor: pointer;
+}
+  
+select:focus, input:focus {
+    border-color: #071b07;  
+    outline: none;  
+}
+  
+  
+.select-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 400;
+    font-size: 13pt;
+    color: var(--main-color);
+}
+
+.ambiente-label {
+    margin-left: 20px;
+}
+  
+.table-container {
+    width: 75%;
+    margin: 0 auto;  
+    display: block;  
+    text-align: center;
+}
+  
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+  
+  .calendar-header .ambiente,
+.calendar-header .month-year {
+    margin-top: 20px;
+    margin-bottom: -15px;
+    font-size: 13pt;
+    color: var(--main-color);
+}
+  
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+}
+  
+th, td {
+    border: 1px solid var(--main-color);
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: rgba(27, 82, 29, 0.2); 
+}
