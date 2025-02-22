@@ -119,6 +119,61 @@ public class UserService {
     }
 
     /// <summary>
+    /// Obtém um usuário específico que ainda não foi aprovado pelo CPF informado.
+    /// </summary>
+    /// <param name="cpf">O CPF do usuário a ser buscado.</param>
+    /// <returns>Um DTO contendo os dados do usuário não aprovado ou nulo se não encontrado.</returns>
+    public async Task<ReadUserDto?> ObterUsuarioNaoAprovadoPorCpfAsync(string cpf) {
+        return await _userManager.Users
+                                .Where(u => !u.IsAprovado && u.Cpf == cpf)
+                                .Select(u => new ReadUserDto {
+                                    Id = u.Id,
+                                    IsAdmin = u.IsAdmin,
+                                    Name = u.Name,
+                                    Siape = u.Siape,
+                                    Cpf = u.Cpf,
+                                    Email = u.Email ?? string.Empty,
+                                    PhoneNumber = u.PhoneNumber ?? string.Empty,
+                                    IsAprovado = u.IsAprovado
+                                })
+                                .FirstOrDefaultAsync();
+    }
+
+    /// <summary>
+    /// Obtém todos os usuários que já foram aprovados.
+    /// </summary>
+    /// <returns>Uma lista de DTOs contendo apenas Nome e CPF de usuários aprovados.</returns>
+    public async Task<List<CadastroPendenteDto>> ObterUsuariosAprovadosAsync() {
+        return await _userManager.Users.Where(u => u.IsAprovado && !u.IsAdmin)
+                                .Select(u => new CadastroPendenteDto {
+                                    Nome = u.Name,
+                                    Cpf = u.Cpf
+                                })
+                                .ToListAsync();
+    }
+
+    /// <summary>
+    /// Obtém um usuário específico que já foi aprovado pelo CPF informado.
+    /// </summary>
+    /// <param name="cpf">O CPF do usuário a ser buscado.</param>
+    /// <returns>Um DTO contendo os dados do usuário já aprovado ou nulo se não encontrado.</returns>
+    public async Task<ReadUserDto?> ObterUsuarioAprovadoPorCpfAsync(string cpf) {
+        return await _userManager.Users
+                                .Where(u => u.IsAprovado && u.Cpf == cpf && !u.IsAdmin)
+                                .Select(u => new ReadUserDto {
+                                    Id = u.Id,
+                                    IsAdmin = u.IsAdmin,
+                                    Name = u.Name,
+                                    Siape = u.Siape,
+                                    Cpf = u.Cpf,
+                                    Email = u.Email ?? string.Empty,
+                                    PhoneNumber = u.PhoneNumber ?? string.Empty,
+                                    IsAprovado = u.IsAprovado
+                                })
+                                .FirstOrDefaultAsync();
+    }
+
+    /// <summary>
     /// Aprova um usuário, alterando o status de IsAprovado para true.
     /// </summary>
     /// <param name="cpf">CPF do usuário a ser aprovado.</param>
@@ -165,5 +220,44 @@ public class UserService {
         }
 
         return "Usuário excluído com sucesso.";
+    }
+
+    /// <summary>
+    /// Cria uma nova reserva.
+    /// </summary>
+    /// <param name="createReservaDto">Objeto DTO contendo os dados necessários para criar uma reserva.</param>
+    /// <param name="userId">Id do usuário que está fazendo a reserva.</param>
+    /// <returns>Retorna a reserva criada.</returns>
+    public async Task<Reserva> CreateReservaAsync(CreateReservaDto createReservaDto, string userId) {
+        var user = await _userManager.FindByIdAsync(userId);
+        if(user == null) {
+            throw new ApplicationException("Usuário não encontrado.");
+        }
+
+        var reserva = new Reserva {
+            Tipo = createReservaDto.Tipo,
+            DataReserva = createReservaDto.DataReserva,
+            Horarios = createReservaDto.Horarios,
+            Usuario = user //associando a reserva ao usuário logado
+        };
+
+        _context.Reservas.Add(reserva);
+        await _context.SaveChangesAsync();
+
+        return reserva;
+    }
+
+    /// <summary>
+    /// Obtém todas as reservas para um ambiente em um dia específico.
+    /// Inclui os dados do usuário que fez a reserva.
+    /// </summary>
+    /// <param name="dataReserva">Data da reserva</param>
+    /// <param name="ambiente">Nome do ambiente</param>
+    /// <returns>Lista de reservas encontradas com informações do usuário</returns>
+    public async Task<List<Reserva>> GetReservasPorDataEAmbienteAsync(DateTime dataReserva, string ambiente) {
+        return await _context.Reservas
+            .Include(r => r.Usuario)  
+            .Where(r => r.DataReserva.Date == dataReserva.Date && r.Tipo == ambiente)
+            .ToListAsync();
     }
 }

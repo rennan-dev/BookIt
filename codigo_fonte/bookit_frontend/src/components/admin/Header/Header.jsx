@@ -1,10 +1,11 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./Header.css";
 import logo from "../../../assets/images/icet_logo.png";
 
 const Header = () => {
   const navigate = useNavigate();
+  const location = useLocation(); 
 
   const handleLogout = async () => {
     try {
@@ -34,10 +35,27 @@ const Header = () => {
       </a>
 
       <nav className="navbar" id="navbar">
-        <a href="/admin">Reservas</a>
-        <a href="/cadastros-pendentes">Cadastros Pendentes</a>
-        <a href="/usuarios-cadastrados">Usuários Cadastrados</a>
-        <a href="#logout" onClick={handleLogout}>Sair</a>
+        <a
+          href="/admin"
+          className={location.pathname === "/admin" ? "active" : ""}
+        >
+          Reservas
+        </a>
+        <a
+          href="/cadastros-pendentes"
+          className={location.pathname === "/cadastros-pendentes" ? "active" : ""}
+        >
+          Cadastros Pendentes
+        </a>
+        <a
+          href="/usuarios-cadastrados"
+          className={location.pathname === "/usuarios-cadastrados" ? "active" : ""}
+        >
+          Usuários Cadastrados
+        </a>
+        <a href="#logout" onClick={handleLogout}>
+          Sair
+        </a>
       </nav>
     </header>
   );

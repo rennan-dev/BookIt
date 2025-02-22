@@ -29,4 +29,9 @@
     border-bottom: 3px solid var(--text-color);
     color: var(--text-color);
 }
+
+.navbar a.active {
+    border-bottom: 3px solid var(--highlight-color);
+    color: var(--highlight-color);
+}
   

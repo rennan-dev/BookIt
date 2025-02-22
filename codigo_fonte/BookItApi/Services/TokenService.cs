@@ -21,7 +21,7 @@ public class TokenService  {
             new Claim(ClaimTypes.Name, user.Name), 
             new Claim(ClaimTypes.NameIdentifier, user.Id),
             new Claim("IsAdmin", user.IsAdmin ? "True" : "False"),
-            new Claim("IsAprovado", user.IsAprovado.ToString()), 
+            new Claim("IsAprovado", user.IsAprovado ? "True" : "False"), 
         };
 
         var chave = new SymmetricSecurityKey(

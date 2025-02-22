@@ -169,7 +169,9 @@ const Cadastro = () => {
                     required
                   />
                 </div>
-                <button type="submit" className="cadastro-button">Cadastrar</button>
+                <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                  <button type="submit" className="cadastro-button">Cadastrar</button>
+              </div>
               </form>
             </fieldset>
             <div className="cadastro-links">

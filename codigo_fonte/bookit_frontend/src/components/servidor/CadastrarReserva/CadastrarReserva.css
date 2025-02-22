@@ -1,0 +1,103 @@
+.container-cadastrar-reserva {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.header-cadastrar-reserva {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.container-cadastrar-reserva h1,
+.container-cadastrar-reserva .data {
+    font-size: 19pt;
+    font-weight: 100;
+    color: var(--main-color);
+    margin-bottom: -10px;
+    margin-top: 50px;
+}
+
+.container-cadastrar-reserva h2 {
+    font-weight: 400;
+    font-size: 13pt;
+    color: var(--main-color);
+    margin-top: 25px;
+}
+
+.table-cadastrar-reserva {
+    width: 70%;
+    border-collapse: collapse;
+    margin: auto auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.table-cadastrar-reserva th,
+.table-cadastrar-reserva td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.table-cadastrar-reserva th {
+    background-color: rgba(27, 82, 29, 0.1);
+    font-size: 10pt;
+    font-weight: 400;
+    color: var(--main-color);
+}
+
+.table-cadastrar-reserva td {
+    font-size: 9pt;
+    font-weight: 400;
+    color: var(--main-color);
+}
+
+.col-horario {
+    width: 20%;
+}
+
+.col-nome {
+    width: 50%;
+}
+
+.reservado {
+    background-color: #dff0d8;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.button-cadastrar-reserva {
+    background-color: #35591E;
+    color: white;
+    font-family: 'Istok Web', sans-serif;
+    font-weight: 400;
+    font-size: 11pt;
+    padding: 5px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button-cadastrar-reserva:hover {
+    background-color: darkgreen;
+}
+
+/* checkbox de 12:00 e 13:00* */
+.table-cadastrar-reserva input:disabled {
+    background-color: #e0e0e0; 
+    cursor: not-allowed; 
+}
+  
+/*background de 12:00 e 13:00*/
+.table-cadastrar-reserva tr:nth-child(5), 
+.table-cadastrar-reserva tr:nth-child(6) {
+    background-color: #f0f0f0; 
+}

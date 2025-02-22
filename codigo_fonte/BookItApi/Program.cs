@@ -37,15 +37,22 @@ builder.Services.AddAuthentication(options => {
     }
 );
 
-//verificação do usuário se é admin ou servidor
+//verificação do usuário se é admin
 builder.Services.AddAuthorization(options => {
     options.AddPolicy("AdminOnly", policy => 
-        //policy.RequireClaim("IsAdmin", "True"));
         policy.AddRequirements(new AdminOnly(true))
     );
 });
 
+//verificação do usuário se é servidor
+builder.Services.AddAuthorization(options => {
+    options.AddPolicy("ServidorOnly", policy => 
+        policy.AddRequirements(new ServidorOnly(false, true))
+    );
+});
+
 builder.Services.AddSingleton<IAuthorizationHandler, AdminAuthorization>();
+builder.Services.AddSingleton<IAuthorizationHandler, ServidorAuthorization>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
