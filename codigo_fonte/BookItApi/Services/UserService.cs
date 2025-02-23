@@ -221,4 +221,43 @@ public class UserService {
 
         return "Usuário excluído com sucesso.";
     }
+
+    /// <summary>
+    /// Cria uma nova reserva.
+    /// </summary>
+    /// <param name="createReservaDto">Objeto DTO contendo os dados necessários para criar uma reserva.</param>
+    /// <param name="userId">Id do usuário que está fazendo a reserva.</param>
+    /// <returns>Retorna a reserva criada.</returns>
+    public async Task<Reserva> CreateReservaAsync(CreateReservaDto createReservaDto, string userId) {
+        var user = await _userManager.FindByIdAsync(userId);
+        if(user == null) {
+            throw new ApplicationException("Usuário não encontrado.");
+        }
+
+        var reserva = new Reserva {
+            Tipo = createReservaDto.Tipo,
+            DataReserva = createReservaDto.DataReserva,
+            Horarios = createReservaDto.Horarios,
+            Usuario = user //associando a reserva ao usuário logado
+        };
+
+        _context.Reservas.Add(reserva);
+        await _context.SaveChangesAsync();
+
+        return reserva;
+    }
+
+    /// <summary>
+    /// Obtém todas as reservas para um ambiente em um dia específico.
+    /// Inclui os dados do usuário que fez a reserva.
+    /// </summary>
+    /// <param name="dataReserva">Data da reserva</param>
+    /// <param name="ambiente">Nome do ambiente</param>
+    /// <returns>Lista de reservas encontradas com informações do usuário</returns>
+    public async Task<List<Reserva>> GetReservasPorDataEAmbienteAsync(DateTime dataReserva, string ambiente) {
+        return await _context.Reservas
+            .Include(r => r.Usuario)  
+            .Where(r => r.DataReserva.Date == dataReserva.Date && r.Tipo == ambiente)
+            .ToListAsync();
+    }
 }
