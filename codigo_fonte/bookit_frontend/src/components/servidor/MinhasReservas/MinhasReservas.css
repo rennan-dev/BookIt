@@ -1,0 +1,58 @@
+.container-minhas-reservas {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+  
+.container-minhas-reservas h2 {
+    font-size: 19pt;
+    font-weight: 100;
+    color: var(--main-color);
+    margin-bottom: -10px;
+    margin-top: 50px;
+}
+  
+.container-minhas-reservas .reservas-table {
+    border-collapse: collapse;
+    margin: auto auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+  
+.container-minhas-reservas .reservas-table th,
+.container-minhas-reservas .reservas-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.container-minhas-reservas .reservas-table td,
+.container-minhas-reservas .reservas-table th {
+    border-left: none;
+    border-right: none;
+}
+  
+.container-minhas-reservas .reservas-table th {
+    background-color: rgba(27, 82, 29, 0.1);
+    font-size: 8pt;
+    font-weight: 400;
+    color: var(--main-color);
+}
+
+.container-minhas-reservas .reservas-table td {
+    font-size: 9pt;
+    font-weight: 400;
+    color: var(--main-color);
+}
+  
+.container-minhas-reservas .delete-button {
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: red;
+}
+  
+.container-minhas-reservas .delete-button:hover {
+    color: darkred;
+}

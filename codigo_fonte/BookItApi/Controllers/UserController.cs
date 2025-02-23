@@ -249,4 +249,54 @@ public class UserController : ControllerBase {
             return StatusCode(500, $"Erro ao buscar reservas: {ex.Message}");
         }
     }
+
+    /// <summary>
+    /// Retorna as reservas do usuário autenticado, utilizando o CPF associado ao usuário.
+    /// </summary>
+    /// <returns>Lista de reservas do usuário.</returns>
+    /// <response code="200">Reservas encontradas (ou lista vazia se nenhuma reserva)</response>
+    /// <response code="401">Usuário não autenticado</response>
+    /// <response code="404">Usuário não encontrado</response>
+    /// <response code="500">Erro interno do servidor</response>
+    [HttpGet("reservas")]
+    [Authorize(Policy = "ServidorOnly")]
+    public async Task<IActionResult> GetReservasDoUsuario() {
+        try {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if(string.IsNullOrEmpty(userId)) {
+                return Unauthorized("Usuário não autenticado.");
+            }
+            var user = await _userService.GetUsuarioPorIdAsync(userId);
+            if(user == null) {
+                return NotFound("Usuário não encontrado.");
+            }
+
+            var reservas = await _userService.GetReservasPorUsuarioAsync(user.Cpf);
+
+            if(reservas == null || reservas.Count == 0) {
+                return NotFound("Nenhuma reserva encontrada.");
+            }
+            return Ok(reservas);
+        }catch(Exception ex) {
+            return StatusCode(500, $"Erro interno: {ex.Message}");
+        }
+    }
+
+    /// <summary>
+    /// Método para excluir reservas de um servidor
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [HttpDelete("reservas/{id}")]
+    [Authorize(Policy = "ServidorOnly")]
+    public async Task<IActionResult> ExcluirReserva(int id) {
+        var resultado = await _userService.ExcluirReservaAsync(id);
+        
+        if(!resultado) {
+            return NotFound($"Reserva com ID {id} não encontrada.");
+        }
+
+        return NoContent(); 
+    }
 }

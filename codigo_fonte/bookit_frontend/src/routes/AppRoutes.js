@@ -1,13 +1,14 @@
-  import React from "react";
-  import { Routes, Route, Navigate } from "react-router-dom";
-  import Login from "../views/Login";
-  import HomeAdmin from "../views/admin/HomeAdmin";
-  import HomeServidor from "../views/servidor/HomeServidor";
-  import { useAuth } from "../hooks/useAuth";
-  import Cadastro from "../views/Cadastro";
-  import CadastrosPendentes from "../views/admin/CadastrosPendentes";
-  import UsuarioCadastrado from "../views/admin/UsuariosCadastradosPage";
-  import CadastroDeReserva from "../views/servidor/CadastroDeReserva";
+import React from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import Login from "../views/Login";
+import HomeAdmin from "../views/admin/HomeAdmin";
+import HomeServidor from "../views/servidor/HomeServidor";
+import { useAuth } from "../hooks/useAuth";
+import Cadastro from "../views/Cadastro";
+import CadastrosPendentes from "../views/admin/CadastrosPendentes";
+import UsuarioCadastrado from "../views/admin/UsuariosCadastradosPage";
+import CadastroDeReserva from "../views/servidor/CadastroDeReserva";
+import PageMinhasReservas from "../views/servidor/ServidorMinhasReservas";
 
   function AppRoutes() {
     const user = useAuth();
@@ -23,6 +24,7 @@
 
         <Route path="/servidor" element={user && !user.isAdmin ? <HomeServidor /> : <Navigate to="/login" />} />
         <Route path="/cadastro-reserva/:data/:ambiente" element={user && !user.isAdmin ? <CadastroDeReserva  /> : <Navigate to="/login" />} />
+        <Route path="/minhas-reservas" element={user && !user.isAdmin ? <PageMinhasReservas  /> : <Navigate to="/login" />} />
 
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
