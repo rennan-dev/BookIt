@@ -222,18 +222,16 @@ public class UserController : ControllerBase {
     /// <returns>Retorna uma lista de reservas para o dia e ambiente especificados.</returns>
     /// <response code="200">Caso as reservas sejam encontradas</response>
     /// <response code="400">Caso os parâmetros sejam inválidos</response>
-    /// <response code="404">Caso não haja reservas para os parâmetros fornecidos</response>
+    /// <response code="200">Caso não haja reservas para os parâmetros fornecidos</response>
     [HttpGet("reservas/{dataReserva}/{ambiente}")]
     public async Task<IActionResult> GetReservasPorDataEAmbiente(string dataReserva, string ambiente) {
         try {
-            if(!DateTime.TryParse(dataReserva, out DateTime data)) {
+            if (!DateTime.TryParse(dataReserva, out DateTime data)) {
                 return BadRequest("Data inválida.");
             }
+
             var reservas = await _userService.GetReservasPorDataEAmbienteAsync(data, ambiente);
 
-            if(reservas == null || !reservas.Any()) {
-                return NotFound("Nenhuma reserva encontrada.");
-            }
             var resultado = reservas.Select(r => new {
                 r.Id,
                 r.Tipo,
@@ -247,7 +245,7 @@ public class UserController : ControllerBase {
             });
 
             return Ok(resultado);
-        }catch(Exception ex) {
+        } catch (Exception ex) {
             return StatusCode(500, $"Erro ao buscar reservas: {ex.Message}");
         }
     }
