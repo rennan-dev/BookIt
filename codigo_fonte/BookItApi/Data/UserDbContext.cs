@@ -15,4 +15,9 @@ public class UserDbContext : IdentityDbContext<User>{
     /// </summary>
     /// <param name="opts">As opções de configuração do contexto do banco de dados.</param>    
     public UserDbContext(DbContextOptions<UserDbContext> opts) : base(opts) { }
+
+    /// <summary>
+    /// Local onde será armazenado as reservas
+    /// </summary>
+    public DbSet<Reserva> Reservas { get; set; }
 }

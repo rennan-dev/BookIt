@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using BookItApi.Dtos.User;
 using BookItApi.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -186,6 +187,66 @@ public class UserController : ControllerBase {
             return Ok(resultado); 
         }catch(Exception ex) {
             return NotFound(ex.Message);
+        }
+    }
+
+    /// <summary>
+    /// Cria uma nova reserva.
+    /// </summary>
+    /// <param name="createReservaDto">Objeto DTO contendo os dados necessários para criar uma reserva.</param>
+    /// <returns>Retorna a reserva criada.</returns>
+    /// <response code="200">Caso a reserva seja criada com sucesso</response>
+    /// <response code="400">Caso o usuário não seja um servidor ou haja erro ao criar a reserva</response>
+    [HttpPost("reservar")]
+    [Authorize(Policy = "ServidorOnly")]  
+    public async Task<IActionResult> CreateReserva(CreateReservaDto createReservaDto) {
+        try {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if(string.IsNullOrEmpty(userId)) {
+                return BadRequest("Usuário não autenticado ou claim NameIdentifier ausente.");
+            }
+
+            var reserva = await _userService.CreateReservaAsync(createReservaDto, userId);
+            return Ok(reserva);
+        }catch(ApplicationException ex) {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    /// <summary>
+    /// Busca todas as reservas de um ambiente em um dia específico.
+    /// </summary>
+    /// <param name="dataReserva">Data da reserva no formato YYYY-MM-DD</param>
+    /// <param name="ambiente">Nome do ambiente</param>
+    /// <returns>Retorna uma lista de reservas para o dia e ambiente especificados.</returns>
+    /// <response code="200">Caso as reservas sejam encontradas</response>
+    /// <response code="400">Caso os parâmetros sejam inválidos</response>
+    /// <response code="200">Caso não haja reservas para os parâmetros fornecidos</response>
+    [HttpGet("reservas/{dataReserva}/{ambiente}")]
+    public async Task<IActionResult> GetReservasPorDataEAmbiente(string dataReserva, string ambiente) {
+        try {
+            if (!DateTime.TryParse(dataReserva, out DateTime data)) {
+                return BadRequest("Data inválida.");
+            }
+
+            var reservas = await _userService.GetReservasPorDataEAmbienteAsync(data, ambiente);
+
+            var resultado = reservas.Select(r => new {
+                r.Id,
+                r.Tipo,
+                r.DataReserva,
+                r.Horarios,
+                Usuario = r.Usuario != null ? new {
+                    r.Usuario.Id,
+                    r.Usuario.Name,
+                    r.Usuario.Cpf
+                } : null
+            });
+
+            return Ok(resultado);
+        } catch (Exception ex) {
+            return StatusCode(500, $"Erro ao buscar reservas: {ex.Message}");
         }
     }
 }
