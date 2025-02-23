@@ -260,4 +260,56 @@ public class UserService {
             .Where(r => r.DataReserva.Date == dataReserva.Date && r.Tipo == ambiente)
             .ToListAsync();
     }
+
+    /// <summary>
+    /// Busca um usuário pelo ID.
+    /// </summary>
+    public async Task<User?> GetUsuarioPorIdAsync(string userId) {
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+
+        if(user == null) {
+            Console.WriteLine($"Usuário com ID {userId} não encontrado.");
+        }else {
+            Console.WriteLine($"Usuário encontrado: {user.Name} (CPF: {user.Cpf})");
+        }
+        return user; 
+    }
+
+    /// <summary>
+    /// Busca todas as reservas de um usuário específico pelo CPF.
+    /// </summary>
+    public async Task<List<Reserva>> GetReservasPorUsuarioAsync(string cpf) {
+        try {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Cpf == cpf);
+
+            if(user == null) {
+                throw new ApplicationException("Usuário não encontrado.");
+            }
+
+            var reservas = await _context.Reservas
+                .Where(r => r.UsuarioId == user.Id)
+                .ToListAsync();
+
+            return reservas;
+        }catch(Exception ex) {
+            Console.WriteLine($"Erro ao buscar reservas para CPF {cpf}: {ex.Message}");
+            throw;
+        }
+    }
+
+    /// <summary>
+    /// Serviço para excluir uma reserva de um servidor
+    /// </summary>
+    /// <param name="reservaId"></param>
+    /// <returns></returns>
+    public async Task<bool> ExcluirReservaAsync(int reservaId) {
+        var reserva = await _context.Reservas.FindAsync(reservaId);
+        if (reserva == null) {
+            return false; 
+        }
+
+        _context.Reservas.Remove(reserva);
+        await _context.SaveChangesAsync();
+        return true; 
+    }
 }

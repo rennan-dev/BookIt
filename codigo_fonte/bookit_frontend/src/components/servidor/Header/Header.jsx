@@ -39,8 +39,7 @@ const Header = () => {
           href="/servidor"
           className={location.pathname === "/servidor" ? "active" : ""}
         >Reservas</a>
-        <a href="#minhas-reservas">Minha(s) reserva(s)</a>
-        <a href="#perfil">Perfil</a>
+        <a href="/minhas-reservas">Minha(s) reserva(s)</a>
         <a href="#logout" onClick={handleLogout}>Sair</a>
       </nav>
     </header>
