@@ -1,30 +1,65 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Reservas.css';  
 
 const Reservas = () => {
   const [month, setMonth] = useState(new Date().getMonth());
   const [year, setYear] = useState(new Date().getFullYear());
-  const [selectedAmbiente, setSelectedAmbiente] = useState("Auditório"); 
+  const [selectedAmbiente, setSelectedAmbiente] = useState("Auditório");
+  const [reservas, setReservas] = useState({});
+  const navigate = useNavigate();
 
   const months = [
     'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
     'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
   ];
 
-  const years = [2023, 2024, 2025];  
-  const ambientes = ['Auditório', 'Sala de Reunião', 'Veículo']; 
-
+  const years = [2023, 2024, 2025];
+  const ambientes = ['Auditório', 'Sala de Reunião', 'Veículo'];
   const daysOfWeek = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
 
-  const getDaysInMonth = (month, year) => {
-    return new Date(year, month + 1, 0).getDate();
+  const getDaysInMonth = (month, year) => new Date(year, month + 1, 0).getDate();
+  const getFirstDayOfMonth = (month, year) => new Date(year, month, 1).getDay();
+
+  const fetchReservas = async () => {
+    const reservasPorDia = {};
+    const daysInMonth = getDaysInMonth(month, year);
+
+    for (let day = 1; day <= daysInMonth; day++) {
+      const formattedDay = day.toString().padStart(2, '0'); 
+      const formattedMonth = (month + 1).toString().padStart(2, '0'); 
+      const formattedDate = `${year}-${formattedMonth}-${formattedDay}`;
+
+      try {
+        const response = await fetch(`http://localhost:5092/api/User/reservas/${formattedDate}/${selectedAmbiente}`);
+
+        if (response.ok) {
+          const dataReservas = await response.json();
+          const qtdHorarios = dataReservas.reduce((total, reserva) => total + reserva.horarios.split(",").length, 0);
+          reservasPorDia[day] = qtdHorarios;
+        }
+      } catch (error) {
+        console.error(`Erro ao buscar reservas para ${formattedDate}:`, error);
+      }
+    }
+
+    setReservas(reservasPorDia);
   };
 
-  const getFirstDayOfMonth = (month, year) => {
-    return new Date(year, month, 1).getDay();
+  useEffect(() => {
+    fetchReservas();
+  }, [month, year, selectedAmbiente]);
+
+  const handleDayClick = (day) => {
+    if (day) {
+      const formattedMonth = (month + 1).toString().padStart(2, '0');
+      const formattedDay = day.toString().padStart(2, '0');
+      const selectedDate = `${year}-${formattedMonth}-${formattedDay}`;
+      navigate(`/reservas-cadastradas/${selectedDate}/${selectedAmbiente}`);
+    }
   };
 
-  const generateCalendar = (month, year) => {
+  const generateCalendar = () => {
     const daysInMonth = getDaysInMonth(month, year);
     const firstDay = getFirstDayOfMonth(month, year);
     const calendar = [];
@@ -49,19 +84,7 @@ const Reservas = () => {
     return calendar;
   };
 
-  const handleMonthChange = (event) => {
-    setMonth(parseInt(event.target.value));
-  };
-
-  const handleYearChange = (event) => {
-    setYear(parseInt(event.target.value));
-  };
-
-  const handleAmbienteChange = (event) => {
-    setSelectedAmbiente(event.target.value);
-  };
-
-  const calendar = generateCalendar(month, year);
+  const calendar = generateCalendar();
 
   return (
     <div className="container">
@@ -71,25 +94,31 @@ const Reservas = () => {
         <div className="select-container">
           <label className="ambiente-label">
             Ambiente:
-            <select value={selectedAmbiente} onChange={handleAmbienteChange}>
+            <select value={selectedAmbiente} onChange={(e) => setSelectedAmbiente(e.target.value)}>
               {ambientes.map((ambiente, index) => (
-                <option key={index} value={ambiente}>{ambiente}</option>
+                <option key={index} value={ambiente}>
+                  {ambiente}
+                </option>
               ))}
             </select>
           </label>
           <label style={{ marginLeft: '10px' }}>
             Mês:
-            <select value={month} onChange={handleMonthChange}>
+            <select value={month} onChange={(e) => setMonth(parseInt(e.target.value))}>
               {months.map((monthName, index) => (
-                <option key={index} value={index}>{monthName}</option>
+                <option key={index} value={index}>
+                  {monthName}
+                </option>
               ))}
             </select>
           </label>
           <label style={{ marginLeft: '10px' }}>
             Ano:
-            <select value={year} onChange={handleYearChange}>
+            <select value={year} onChange={(e) => setYear(parseInt(e.target.value))}>
               {years.map((yearOption, index) => (
-                <option key={index} value={yearOption}>{yearOption}</option>
+                <option key={index} value={yearOption}>
+                  {yearOption}
+                </option>
               ))}
             </select>
           </label>
@@ -99,12 +128,6 @@ const Reservas = () => {
           <div>Selecione a data correspondente à(s) reserva(s):</div>
         </div>
         <div className="table-container">
-          <div className="calendar-header">
-            <div className="ambiente">{selectedAmbiente || 'Ambiente'} </div>
-            <div className="month-year">
-              {months[month]} {year}
-            </div>
-          </div>
           <table>
             <thead>
               <tr>
@@ -117,7 +140,26 @@ const Reservas = () => {
               {calendar.map((week, weekIndex) => (
                 <tr key={weekIndex}>
                   {week.map((day, dayIndex) => (
-                    <td key={dayIndex}>{day}</td>
+                    <td
+                      key={dayIndex}
+                      onClick={() => handleDayClick(day)}
+                      style={{ cursor: 'pointer', position: 'relative' }}
+                    >
+                      {day}
+                      {day && reservas[day] ? (
+                        <span
+                          style={{
+                            fontSize: '0.8em',
+                            color: 'red',
+                            position: 'absolute',
+                            bottom: '2px',
+                            right: '2px',
+                          }}
+                        >
+                          ({reservas[day]})
+                        </span>
+                      ) : null}
+                    </td>
                   ))}
                 </tr>
               ))}

@@ -35,11 +35,8 @@ const Header = () => {
       </a>
 
       <nav className="navbar" id="navbar">
-      <a
-          href="/servidor"
-          className={location.pathname === "/servidor" ? "active" : ""}
-        >Reservas</a>
-        <a href="/minhas-reservas">Minha(s) reserva(s)</a>
+        <a href="/servidor" className={location.pathname === "/servidor" ? "active" : ""}> Reservas </a>
+        <a href="/minhas-reservas" className={location.pathname === "/minhas-reservas" ? "active" : ""}>Minha(s) reserva(s)</a>
         <a href="#logout" onClick={handleLogout}>Sair</a>
       </nav>
     </header>

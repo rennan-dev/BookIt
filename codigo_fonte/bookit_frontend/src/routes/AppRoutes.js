@@ -7,6 +7,7 @@ import { useAuth } from "../hooks/useAuth";
 import Cadastro from "../views/Cadastro";
 import CadastrosPendentes from "../views/admin/CadastrosPendentes";
 import UsuarioCadastrado from "../views/admin/UsuariosCadastradosPage";
+import ReservasCadastradas from "../views/admin/ReservasCadastradasPage";
 import CadastroDeReserva from "../views/servidor/CadastroDeReserva";
 import PageMinhasReservas from "../views/servidor/ServidorMinhasReservas";
 
@@ -21,6 +22,7 @@ import PageMinhasReservas from "../views/servidor/ServidorMinhasReservas";
         <Route path="/admin" element={user?.isAdmin ? <HomeAdmin /> : <Navigate to="/login" />} />
         <Route path="/cadastros-pendentes" element={user?.isAdmin ? <CadastrosPendentes /> : <Navigate to="/login" />} />
         <Route path="/usuarios-cadastrados" element={user?.isAdmin ? <UsuarioCadastrado /> : <Navigate to="/login" />} />
+        <Route path="/reservas-cadastradas/:data/:ambiente" element={user?.isAdmin ? <ReservasCadastradas /> : <Navigate to="/login" />} />
 
         <Route path="/servidor" element={user && !user.isAdmin ? <HomeServidor /> : <Navigate to="/login" />} />
         <Route path="/cadastro-reserva/:data/:ambiente" element={user && !user.isAdmin ? <CadastroDeReserva  /> : <Navigate to="/login" />} />
