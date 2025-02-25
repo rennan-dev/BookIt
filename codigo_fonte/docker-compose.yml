@@ -1,0 +1,56 @@
+version: '3.8'
+
+networks:
+  bookit-bridge:
+    driver: bridge
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: bookit-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: bookitdb
+      MYSQL_USER: bookituser
+      MYSQL_PASSWORD: bookitpass
+    networks:
+      - bookit-bridge 
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  backend:
+    build:
+      context: ./BookItApi
+      dockerfile: Dockerfile
+    container_name: bookit-api
+    restart: always
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=bookit-mysql;Database=bookitdb;User=root;Password=root;
+    ports:
+      - "5092:8080"
+    networks:
+      - bookit-bridge
+
+  frontend:
+    build:
+      context: ./bookit_frontend
+      dockerfile: Dockerfile
+    container_name: bookit-react
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "3000:3000"
+    networks:
+      - bookit-bridge
+
+volumes:
+  mysql_data:
