@@ -1,0 +1,19 @@
+.voltar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 70%;
+    margin: 20px auto;
+}
+
+.voltar-link a {
+    text-decoration: none;
+    color: var(--main-color);
+    font-size: 12pt;
+    font-weight: 400;
+    padding: 5px 10px;
+}
+
+.voltar-link a:hover {
+    text-decoration: underline;
+}

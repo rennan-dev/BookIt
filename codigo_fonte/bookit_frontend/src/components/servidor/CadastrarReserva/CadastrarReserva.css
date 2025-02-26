@@ -69,9 +69,22 @@
 
 .button-container {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between; 
+    align-items: center;
     width: 70%;
-    margin: 0 auto;
+    margin: 20px auto;
+}
+
+.voltar-link a {
+    text-decoration: none;
+    color: var(--main-color);
+    font-size: 12pt;
+    font-weight: 400;
+    padding: 5px 10px;
+}
+
+.voltar-link a:hover {
+    text-decoration: underline;
 }
 
 .button-cadastrar-reserva {
@@ -89,6 +102,7 @@
 .button-cadastrar-reserva:hover {
     background-color: darkgreen;
 }
+
 
 /* checkbox de 12:00 e 13:00* */
 .table-cadastrar-reserva input:disabled {

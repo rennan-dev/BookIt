@@ -15,7 +15,7 @@ const Reservas = () => {
   ];
 
   const years = [2023, 2024, 2025];
-  const ambientes = ['Auditório', 'Sala de Reunião', 'Veículo'];
+  const ambientes = ['Auditório', 'Mini Auditório', 'Sala de Reunião', 'Ford Ranger', 'Mitsubishi L200'];
   const daysOfWeek = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
 
   const getDaysInMonth = (month, year) => new Date(year, month + 1, 0).getDate();
