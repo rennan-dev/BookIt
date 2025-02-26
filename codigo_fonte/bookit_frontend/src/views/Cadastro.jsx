@@ -11,6 +11,8 @@ const Cadastro = () => {
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+
 
   const handleCpfChange = (e) => {
     let value = e.target.value.replace(/\D/g, "");
@@ -56,6 +58,9 @@ const Cadastro = () => {
       return;
     }
 
+    //bloqueando a tela
+    setIsLoading(true);
+
     try {
       const response = await fetch("http://localhost:5092/api/User/cadastro", {
         method: "POST",
@@ -71,13 +76,21 @@ const Cadastro = () => {
         alert(`Erro no cadastro: ${errorText}`);
       }
     } catch (error) {
-      console.error("Erro ao conectar com o servidor:", error);
       alert("Erro ao conectar com o servidor. Verifique sua conexão.");
+    }finally {
+      setIsLoading(false); //desativa o overlay ao finalizar a requisição
     }
   };
-
+ 
   return (
     <div className="cadastro-container">
+      
+      {isLoading && ( 
+        <div className="loading-overlay">
+          <div className="loading-spinner"></div>
+        </div>
+      )}
+
       <h1 className="cadastro-title">Sistema de Reservas</h1>
       <fieldset className="cadastro-fieldset">
         <div className="cadastro-content">
