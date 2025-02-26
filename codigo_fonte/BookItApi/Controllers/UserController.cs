@@ -36,6 +36,7 @@ public class UserController : ControllerBase {
     [HttpPost("cadastro")]
     public async Task<IActionResult> CadastraUser(CreateUserDto userDto) {
         await _userService.CadastraUsuario(userDto);
+
         return Ok("Usuário cadastrado!");
     }
 

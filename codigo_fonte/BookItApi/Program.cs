@@ -75,6 +75,8 @@ builder.Services.AddCors(options => {
                         .AllowAnyHeader());
 });
 
+builder.Services.AddSingleton<IEmailSender, EmailSender>();
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope()) {
