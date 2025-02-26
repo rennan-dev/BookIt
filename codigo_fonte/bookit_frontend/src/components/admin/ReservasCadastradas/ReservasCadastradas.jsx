@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import "./ReservasCadastradas.css";
 
 const ReservasCadastradas = () => {
+  const location = useLocation(); 
   const { data, ambiente } = useParams();
   const [horariosReservados, setHorariosReservados] = useState([]);
 
@@ -72,6 +73,11 @@ const ReservasCadastradas = () => {
           })}
         </tbody>
       </table>
+      <div className="voltar-container">
+        <div className="voltar-link">
+          <a href="/admin" className={location.pathname === "/servidor" ? "active" : ""}> voltar </a>
+        </div>
+      </div>
     </div>
   );
 };

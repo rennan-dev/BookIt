@@ -30,7 +30,7 @@ const Header = () => {
 
   return (
     <header className="header">
-      <a href="#home" className="logo">
+      <a href="/servidor" className="logo">
         <img src={logo} alt="Logo ICET" className="logo-img" />
       </a>
 

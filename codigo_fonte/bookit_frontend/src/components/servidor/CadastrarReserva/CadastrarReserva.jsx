@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import "./CadastrarReserva.css";
 
 const CadastrarReserva = () => {
+  const location = useLocation(); 
   const { data, ambiente } = useParams();
   const [reservas, setReservas] = useState(
     Array(14).fill(null).map(() => ({ nome: "", cpf: "", reservado: false }))
@@ -206,6 +207,9 @@ const CadastrarReserva = () => {
         </tbody>
       </table>
       <div className="button-container">
+        <div className="voltar-link">
+          <a href="/servidor" className={location.pathname === "/servidor" ? "active" : ""}> voltar </a>
+        </div>
         <button 
           className="button-cadastrar-reserva" 
           onClick={reservarHorarios} 
