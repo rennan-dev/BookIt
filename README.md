@@ -15,9 +15,9 @@ O BookIt é um sistema de gerenciamento de reservas desenvolvido para a UFAM, pe
 1. Administrador (Admin)
     - Aprovação de solicitações de reserva: O admin pode aceitar ou recusar solicitações de reserva feitas por técnicos e docentes.
     - Gerenciamento de cadastros: Aprova ou recusa pedidos de cadastro de novos usuários no sistema.
-    - Gestão de recursos: Altera o status de veículos e salas (ex: quebrado, em manutenção, disponível, etc.).
+    - Gestão de recursos(em desenvolvimento): Altera o status de veículos e salas (ex: quebrado, em manutenção, disponível, etc.).
 2. Técnico e Docente
-    - Solicitação de reserva: Podem solicitar a reserva de salas de reunião, auditórios ou veículos, informando data e horário de início e fim.
+    - Realizar reservas: Podem realizar reservas de salas de reunião, auditórios ou veículos, informando data e horário.
     - Cadastro no sistema: Podem se cadastrar no sistema, mas só terão acesso após aprovação do admin.
     - Cancelamento de reserva: Podem cancelar reservas já feitas em seu nome.
 3. Cadastro e Login
@@ -44,47 +44,72 @@ O BookIt é um sistema de gerenciamento de reservas desenvolvido para a UFAM, pe
     - Após aprovado, faça login e solicite reservas de recursos.
     - Gerencie suas reservas, cancelando-as se necessário.
 
-## Como Rodar a Aplicação  
+# Como Rodar a Aplicação  
 
 ### Pré-requisitos  
 
-Antes de começar, certifique-se de ter instalado:  
-- [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)  
-- [MySQL](https://dev.mysql.com/downloads/) 
-- [Node.js](https://nodejs.org/) 
+Antes de começar, certifique-se de ter instalado e que esteja em execução:  
+- [Docker](https://www.docker.com/get-started)  
+- [Docker Compose](https://docs.docker.com/compose/install/)  
 
-utilize esse código para poder utilizar o comando ef no seu computador
+### Passos para Executar a Aplicação com Docker  
 
-``dotnet tool install --global dotnet-ef``
+1. **Configuração de Envio de E-mail**  
+   No arquivo `codigo_fonte/BookItApi/appsettings.json`, preencha as informações do seu e-mail para envio de mensagens. O arquivo deve se parecer com o seguinte:
 
-no codigo_fonte/BookItApi/appsettings.json coloque o seu user e senha do MySQL, depois entre no terminal dentro da pasta do projeto BookIt, utilize esse comando para atualizar o database:
-
-``dotnet ef database update``
-
-Posteriormente utilize para rodar o programa:
-
-``dotnet run``
-
-Para acessar a API:
-
-``http://localhost:5092/swagger/index.html``
-
-Agora entre na pasta codigo_fonte/bookit_frontend no  terminal e execute o seguinte comando:
-
-``npm install react-router-dom``
-
-para executar o projeto, execute:
-
-``npm start``
-
-Para acessar a página web:
-
-``http://localhost:3000/login``
+   ```json
+   {
+     "Logging": {
+       "LogLevel": {
+         "Default": "Information",
+         "Microsoft.AspNetCore": "Warning"
+       }
+     },
+     "AllowedHosts": "*",
+     "ConnectionStrings": {
+       "BookItApi": "server=bookit-mysql; database=bookit; user=root; password=root"
+     },
+     "Smtp": {
+       "Host": "smtp.gmail.com",
+       "Port": 587,
+       "Username": "<seu_email>@gmail.com",
+       "Password": "<seu_codigo_de_app>",
+       "From": "<seu_email>@gmail.com"
+     }
+   }
 
 
+# Instruções para Execução do Projeto
+
+## Subir os Containers com Docker Compose
+
+Entre no diretório `codigo_fonte` no terminal e execute o seguinte comando para construir e iniciar os containers:
+
+```
+docker compose up --build
+```
+
+# Parar os Containers com Docker Compose
+## Quando desejar parar os containers em execução, utilize o comando:
+```
+docker compose down
+```
+
+## Acessando a Aplicação
+### Backend
+```
+http://localhost:5092/swagger/index.html
+```
+
+### Frontend
+```
+http://localhost:3000/login
+```
 
 ## Tecnologias Utilizadas
 - **Frontend:** React
 - **Backend:** C#
 - **Banco de Dados:** MySQL
 - **Autenticação:** JWT (JSON Web Tokens)
+- **Envio de E-mail:** SMTP (Gmail)
+- **Containerização:** Docker

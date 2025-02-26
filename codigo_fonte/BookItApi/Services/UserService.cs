@@ -51,6 +51,10 @@ public class UserService {
                             a.PhoneNumber == userDto.PhoneNumber)
                 .FirstOrDefaultAsync();
 
+            if(!userDto.Email.EndsWith("@ufam.edu.br")) {
+                throw new ApplicationException("O Email precisa terminar com @ufam.edu.br");
+            }
+
             if(userExistente != null) {
                 if(userExistente.Siape == userDto.Siape) {
                     throw new ApplicationException("Já existe um usuário cadastrado com este SIAPE.");
@@ -80,7 +84,7 @@ public class UserService {
                         await _emailSender.SendEmailAsync(
                             admin.Email,
                             "BookIt - Novo Cadastro Pendente",
-                            $"Olá, {admin.Name}.\nUm novo usuário ({user.Name}, CPF: {userDto.Cpf}) solicitou cadastro no sistema. Acesse o painel administrativo para revisar e aprovar a solicitação.");
+                            $"Olá, {admin.Name}.\nUm novo usuário ({user.Name}, CPF: {userDto.Cpf}) solicitou cadastro no sistema. Acesse o painel administrativo para revisar a solicitação.");
                     }
                 }
             }
@@ -209,6 +213,14 @@ public class UserService {
         }
 
         usuario.IsAprovado = true;
+        
+        if(usuario.Email!=null) {
+            await _emailSender.SendEmailAsync(
+                usuario.Email,
+                "BookIt - Cadastro Aprovado",
+                $"Parabéns, seu cadastro foi aprovado e você já pode acessar o sistema BookIt.");
+        }
+
         await _userManager.UpdateAsync(usuario);
         return "Usuário aprovado com sucesso.";
     }

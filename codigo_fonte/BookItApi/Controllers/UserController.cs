@@ -76,15 +76,10 @@ public class UserController : ControllerBase {
     /// <response code="200">Retorna a lista de usuários não aprovados</response>
     /// <response code="404">Caso não haja usuários não aprovados</response>
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("pendentes")]
     [Authorize(Policy = "AdminOnly")]
     public async Task<IActionResult> ObterUsuariosNaoAprovados() {
         var usuarios = await _userService.ObterUsuariosNaoAprovadosAsync();
-
-        if(usuarios == null || usuarios.Count == 0) {
-            return NotFound("Nenhum usuário pendente encontrado.");
-        }
 
         return Ok(usuarios);
     }
@@ -117,15 +112,10 @@ public class UserController : ControllerBase {
     /// <response code="200">Retorna a lista de usuários aprovados</response>
     /// <response code="404">Caso não haja usuários aprovados</response>
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("servidores")]
     [Authorize(Policy = "AdminOnly")]
     public async Task<IActionResult> ObterUsuariosAprovados() {
         var usuarios = await _userService.ObterUsuariosAprovadosAsync();
-
-        if(usuarios == null || usuarios.Count == 0) {
-            return NotFound("Nenhum usuário aprovado encontrado.");
-        }
 
         return Ok(usuarios);
     }
