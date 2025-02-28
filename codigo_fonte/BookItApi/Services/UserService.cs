@@ -59,6 +59,9 @@ public class UserService {
                 if(userExistente.Siape == userDto.Siape) {
                     throw new ApplicationException("Já existe um usuário cadastrado com este SIAPE.");
                 }
+                if(userExistente.Cpf == userDto.Cpf) {
+                    throw new ApplicationException("Já existe um usuário cadastrado com este CPF.");
+                }
                 if(userExistente.Email == userDto.Email) {
                     throw new ApplicationException("Já existe um usuário cadastrado com este e-mail.");
                 }
@@ -96,7 +99,7 @@ public class UserService {
         }catch(Exception ex) {
             Console.WriteLine($"Erro ao cadastrar o usuário: {ex.Message}");
             Console.WriteLine(ex.StackTrace);
-            throw new ApplicationException($"Falha ao cadastrar o usuário. Detalhes: {ex.Message}");
+            throw new ApplicationException($"{ex.Message}");
         }
     }
 

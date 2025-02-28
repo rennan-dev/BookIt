@@ -7,6 +7,7 @@ const CadastroPendentes = () => {
   const [error, setError] = useState(null);
   const [cpfParaExcluir, setCpfParaExcluir] = useState(null);
   const [usuarioVisualizado, setUsuarioVisualizado] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchPendentes = async () => {
@@ -39,6 +40,10 @@ const CadastroPendentes = () => {
   }, []);
 
   const aprovarUsuario = async (cpf) => {
+
+    //bloqueando a tela
+    setIsLoading(true);
+
     try {
       const token = localStorage.getItem("token");
       const headers = {
@@ -60,6 +65,8 @@ const CadastroPendentes = () => {
       setPendentes((prevPendentes) => prevPendentes.filter((user) => user.cpf !== cpf));
     }catch(error) {
       alert(`Erro ao aprovar usuário: ${error.message}`);
+    }finally {
+      setIsLoading(false);
     }
   };
 
@@ -130,6 +137,13 @@ const CadastroPendentes = () => {
 
   return (
     <div className="cadastro-pendente-container">
+
+      {isLoading && ( 
+        <div className="loading-overlay">
+          <div className="loading-spinner"></div>
+        </div>
+      )}
+
       <h1>Cadastros Pendentes</h1>
       <fieldset>
         {pendentes.length > 0 ? (

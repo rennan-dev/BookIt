@@ -35,9 +35,14 @@ public class UserController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status200OK)]
     [HttpPost("cadastro")]
     public async Task<IActionResult> CadastraUser(CreateUserDto userDto) {
-        await _userService.CadastraUsuario(userDto);
-
-        return Ok("Usuário cadastrado!");
+        try {
+            await _userService.CadastraUsuario(userDto);
+            return Ok("Usuário cadastrado!");
+        } catch (ApplicationException ex) {
+            return BadRequest(new { message = ex.Message });
+        } catch (Exception ex) {
+            return StatusCode(500, new { message = "Erro interno no servidor." });
+        }
     }
 
     /// <summary>
