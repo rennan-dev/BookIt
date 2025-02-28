@@ -47,40 +47,44 @@ const Cadastro = () => {
 
   const handleCadastro = async (e) => {
     e.preventDefault();
-
+  
     if (!validatePassword(password)) {
       alert("A senha deve ter pelo menos 8 caracteres, incluindo 1 letra maiúscula, 1 minúscula, 1 número e 1 caractere especial.");
       return;
     }
-
+  
     if (password !== rePassword) {
       alert("As senhas não coincidem!");
       return;
     }
-
-    //bloqueando a tela
+  
     setIsLoading(true);
-
+  
     try {
       const response = await fetch("http://localhost:5092/api/User/cadastro", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ siape, cpf, name: fullName, email, phoneNumber, password , rePassword}),
       });
-
+  
       if (response.ok) {
         alert("Solicitação de cadastro aceita, aguarde um email do admin com a sua confirmação.");
         navigate("/login");
       } else {
-        const errorText = await response.text();
-        alert(`Erro no cadastro: ${errorText}`);
+        const errorData = await response.json();
+        if (errorData && errorData.message) {
+          alert(`Erro no cadastro: ${errorData.message}`);
+        } else {
+          alert("Erro no cadastro. Tente novamente.");
+        }
       }
     } catch (error) {
       alert("Erro ao conectar com o servidor. Verifique sua conexão.");
-    }finally {
-      setIsLoading(false); //desativa o overlay ao finalizar a requisição
+    } finally {
+      setIsLoading(false);
     }
   };
+  
  
   return (
     <div className="cadastro-container">
