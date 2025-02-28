@@ -53,7 +53,6 @@ const CadastrarReserva = () => {
           reserva.horarios.split(",").map((horario) => ({
             horario,
             nome: reserva.usuario.name,
-            cpf: reserva.usuario.cpf
           }))
         );
 
@@ -67,7 +66,6 @@ const CadastrarReserva = () => {
   }, [data, ambiente]);
 
   const handleCheckboxChange = (index) => {
-    if(index === 4 || index === 5) return;
     const newReservas = [...reservas];
     newReservas[index].reservado = !newReservas[index].reservado;
     setReservas(newReservas);
@@ -82,7 +80,6 @@ const CadastrarReserva = () => {
   
       if (
         !horariosReservados.some((r) => r.horario === horarios[index]) && 
-        index !== 4 && index !== 5 && 
         !(isDataPassada || horasBloqueadas.includes(horarios[index])) &&
         !(data === new Date().toISOString().split("T")[0] && horaCheckbox < horaAtual)
       ) {
@@ -93,7 +90,6 @@ const CadastrarReserva = () => {
   
     setReservas(newReservas);
   };
-  
 
   const reservarHorarios = async () => {
     const token = localStorage.getItem("token");
@@ -160,17 +156,18 @@ const CadastrarReserva = () => {
       <table className="table-cadastrar-reserva">
         <thead>
           <tr>
-            <th>
+          <th className="checkbox-cell">
+            <div className="checkbox-wrapper">
               <input 
                 type="checkbox" 
                 onChange={handleSelecionarTodos} 
                 checked={selecionarTodos} 
-                disabled={isDataPassada} //desativa o "Selecionar Todos" se a data já passou
+                disabled={isDataPassada} 
               />
-            </th>
+            </div>
+          </th>
             <th>Horários</th>
             <th className="col-nome">Nomes</th>
-            <th>CPF</th>
           </tr>
         </thead>
         <tbody>
@@ -186,21 +183,22 @@ const CadastrarReserva = () => {
   
             return (
               <tr key={index} className={isReservado ? "reservado" : ""}>
-                <td className="tooltip-container">
-                  <input
-                    type="checkbox"
-                    checked={reservas[index].reservado}
-                    onChange={() => handleCheckboxChange(index)}
-                    disabled={isReservado || isBloqueado}
-                    style={{ cursor: (isReservado || isBloqueado) ? "not-allowed" : "pointer" }}
-                  />
-                  {(isReservado || isBloqueado) && (
-                    <span className="tooltip">{tooltipMessage}</span>
-                  )}
+                <td className="tooltip-container checkbox-cell">
+                  <div className="checkbox-wrapper">
+                    <input
+                      type="checkbox"
+                      checked={reservas[index].reservado}
+                      onChange={() => handleCheckboxChange(index)}
+                      disabled={isReservado || isBloqueado}
+                      style={{ cursor: (isReservado || isBloqueado) ? "not-allowed" : "pointer" }}
+                    />
+                    {(isReservado || isBloqueado) && (
+                      <span className="tooltip">{tooltipMessage}</span>
+                    )}
+                  </div>
                 </td>
                 <td>{hora}</td>
                 <td>{reserva ? reserva.nome : ""}</td>
-                <td>{reserva ? reserva.cpf : ""}</td>
               </tr>
             );
           })}
