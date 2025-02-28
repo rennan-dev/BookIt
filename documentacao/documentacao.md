@@ -1,11 +1,6 @@
-<html>
-<body>
+# Sistema de Reservas - BookIt
 
-<h1>Sistema de Reservas - BookIt</h1>
-<hr>
-
-<h2>Introdução</h2>
-<hr>
+## Introdução
 
 <p align = justify>
 O Instituto de Ciências Exatas e Tecnologia (ICET) da Universidade Federal do Amazonas (UFAM) necessita de um sistema eficiente para o gerenciamento de reservas de ambientes e veículos institucionais. O projeto BookIt surge como uma solução web moderna, proporcionando maior controle e transparência no uso dos recursos disponíveis, otimizando os processos administrativos e acadêmicos da instituição.
@@ -32,8 +27,7 @@ O desenvolvimento do BookIt trará mais organização e eficiência ao processo 
 </p>
 
 
-<h2>Prototipação</h2>
-<hr>
+## Prototipação
 
 <p align = justify>
 A prototipação desempenha um papel fundamental no desenvolvimento do sistema BookIt, uma vez que permite visualizar e validar a interface e a experiência do usuário antes da implementação final. Utilizando o Figma como ferramenta de prototipação, foi possível criar representações interativas do sistema, facilitando a identificação de melhorias e garantindo que o design atenda às necessidades dos usuários. Esse processo possibilitou a realização de ajustes na interface de forma ágil e colaborativa, permitindo que a equipe de desenvolvimento e os stakeholders tivessem uma visão clara de como o sistema funcionaria na prática. Além disso, a prototipação reduziu significativamente o risco de retrabalho, pois erros e inconsistências puderam ser detectados e corrigidos na fase inicial do projeto. Dessa forma, a utilização do Figma como ferramenta de prototipação foi essencial para garantir um sistema intuitivo, acessível e eficiente, contribuindo para a qualidade final do BookIt e para a satisfação dos seus usuários.
@@ -44,8 +38,7 @@ Clique <a href="https://www.figma.com/proto/FQ4Kz2ZVfkdwBJBknppLl4/Sistema-de-re
 </p>
 
 
-<h2>Diagrama de caso de uso</h2>
-<hr>
+## Diagrama de caso de uso
 
 <p align = justify>
 O diagrama de caso de uso elaborado para o sistema BookIt desempenha um papel essencial na definição e organização dos requisitos funcionais do projeto. Esse diagrama possibilita uma representação visual clara das interações entre os usuários e o sistema, ajudando a equipe de desenvolvimento a compreender melhor os processos e garantir que todas as funcionalidades essenciais sejam contempladas. Além disso, a criação do diagrama de caso de uso facilita a comunicação entre os stakeholders, permitindo um alinhamento preciso das expectativas em relação ao funcionamento da aplicação. Com essa abordagem, é possível identificar potenciais melhorias e prever desafios antes da implementação, reduzindo falhas e aumentando a eficiência do desenvolvimento. Assim, o diagrama de caso de uso contribui diretamente para a construção de um sistema mais bem estruturado, atendendo às necessidades dos usuários de forma eficaz e garantindo maior confiabilidade no processo de reserva de ambientes e veículos dentro do ICET/UFAM.
@@ -58,8 +51,7 @@ O diagrama de caso de uso elaborado para o sistema BookIt desempenha um papel es
     <img src="DCU.png" alt="Diagrama de Caso de Uso" width="80%">
 </p>
 
-<h2>Diagrama de Classes</h2>
-<hr>
+## Diagrama de Classes
 
 <p align = justify>
 O diagrama de classes é uma ferramenta essencial no desenvolvimento do sistema BookIt, pois possibilita a modelagem estruturada dos componentes do software, definindo as relações entre os objetos e suas responsabilidades dentro do sistema. Esse diagrama permite uma visão clara da organização interna do código, ajudando a equipe de desenvolvimento a criar um sistema coeso, modular e de fácil manutenção. Além disso, o diagrama de classes facilita a implementação de boas práticas de programação, promovendo a reutilização de código e a separação adequada das responsabilidades entre as classes. Por meio desse modelo, foi possível estabelecer a estrutura do BookIt de forma lógica e eficiente, garantindo que os relacionamentos entre usuários, reservas, ambientes e veículos fossem bem definidos e consistentes. Dessa maneira, a utilização do diagrama de classes contribui significativamente para a qualidade e robustez do sistema, reduzindo erros durante a implementação e facilitando futuras expansões e melhorias.
@@ -70,6 +62,3 @@ O diagrama de classes é uma ferramenta essencial no desenvolvimento do sistema 
 <p>
     <img src="DC.png" alt="Diagrama de Classes" width="80%">
 </p>
-
-</body>
-</html>
