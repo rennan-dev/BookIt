@@ -1,6 +1,15 @@
 
 # BookIt - (em desenvolvimento)
 
+Para utilizar a versão de forma simplificada utilize a branch Teste, se deseja utilizar o sistema com todas as funcionalidades utilize esta branch.
+
+Para utilizar o painel do administrador utilize essas credenciais:
+
+```CPF: 123.456.789=00```
+
+```Senha: Aaaa123!```
+
+
 O BookIt é um sistema de gerenciamento de reservas desenvolvido para a UFAM, permitindo a reserva de salas de reunião, auditórios e veículos de forma prática e eficiente. Com três tipos de usuários (Administrador, Técnico e Docente), o sistema oferece controle total sobre as reservas, cadastros e status dos recursos disponíveis.
 
 ## Autores
@@ -55,7 +64,7 @@ Antes de começar, certifique-se de ter instalado e que esteja em execução:
 ### Passos para Executar a Aplicação com Docker  
 
 1. **Configuração de Envio de E-mail**  
-   No arquivo `codigo_fonte/BookItApi/appsettings.json`, preencha as informações do seu e-mail para envio de mensagens. O arquivo deve se parecer com o seguinte:
+   No arquivo `codigo_fonte/BookItApi/appsettings.json`, preencha as informações do seu e-mail para envio de mensagens. O arquivo deve se parecer com o seguinte, lembresse que você deve permitir através do seu e-mail e então você receberá o Password, caso você coloque a sua senha do e-mail não derá certo, veja vídeos sobre Envio de E-Mail por SMTP:
 
    ```json
    {
@@ -77,6 +86,9 @@ Antes de começar, certifique-se de ter instalado e que esteja em execução:
        "From": "<seu_email>@gmail.com"
      }
    }
+
+2. **Configuração para o administrador**
+     No arquivo `codigo_fonte/BookItApi/Services/SeedData.cs`, preencha as informações do seu cadastro, como E-Mail, Sennha, Nome, CPF e Siape.
 
 
 # Instruções para Execução do Projeto
