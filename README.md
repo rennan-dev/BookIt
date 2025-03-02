@@ -1,6 +1,8 @@
 
 # BookIt - (em desenvolvimento)
 
+Para utilizar a versão de forma simplificada utilize a branch Teste, se deseja utilizar o sistema com todas as funcionalidades utilize esta branch.
+
 O BookIt é um sistema de gerenciamento de reservas desenvolvido para a UFAM, permitindo a reserva de salas de reunião, auditórios e veículos de forma prática e eficiente. Com três tipos de usuários (Administrador, Técnico e Docente), o sistema oferece controle total sobre as reservas, cadastros e status dos recursos disponíveis.
 
 ## Autores
