@@ -1,5 +1,13 @@
 
-# BookIt - (em desenvolvimento)
+# BookIt - (Teste)
+
+Para utilizar o painel do administrador utilize essas credenciais:
+
+```CPF: 123.456.789=00```
+
+```Senha: Aaaa123!```
+
+Utilize essa branch para testar a funcionalidade do BookIt sem a necessidade de cadastrar um email para o envio de mensagens para testar o sistema com todas as funcionalidades utilize a main.
 
 O BookIt é um sistema de gerenciamento de reservas desenvolvido para a UFAM, permitindo a reserva de salas de reunião, auditórios e veículos de forma prática e eficiente. Com três tipos de usuários (Administrador, Técnico e Docente), o sistema oferece controle total sobre as reservas, cadastros e status dos recursos disponíveis.
 

@@ -17,7 +17,6 @@ public class UserService {
     private SignInManager<User> _signInManager;
     private TokenService _tokenService;
     private UserDbContext _context;
-    private readonly IEmailSender _emailSender;
 
     /// <summary>
     /// Inicializa uma nova instância da classe <see cref="UserService"/>.
@@ -27,14 +26,12 @@ public class UserService {
     /// <param name="signInManager">Gerenciador de login do Identity.</param>
     /// <param name="tokenService">Serviço responsável pela geração de tokens JWT.</param>
     /// <param name="context">Contexto do banco de dados específico para a administração de dados de usuários.</param>
-    /// <param name="emailSender">Serviço de envio de email para admins e servidores.</param>
-    public UserService(IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager, TokenService tokenService, UserDbContext context, IEmailSender emailSender) {
+    public UserService(IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager, TokenService tokenService, UserDbContext context) {
         _mapper = mapper;
         _userManager = userManager;
         _signInManager = signInManager;
         _tokenService = tokenService;
         _context = context;
-        _emailSender = emailSender;
     }
 
     /// <summary>
@@ -74,23 +71,6 @@ public class UserService {
             user.UserName = userDto.Cpf;
 
             IdentityResult resultado = await _userManager.CreateAsync(user, userDto.Password);
-
-            if(!user.IsAdmin && user.Email!=null) {
-                await _emailSender.SendEmailAsync(
-                    user.Email,
-                    "BookIt - Cadastro Pendente",
-                    $"Olá, senhor/senhora {user.Name}.\nSeu cadastro foi armazenado no sistema, aguarde a resposta de um administrador para acessar o sistema.\nNós retornaremos com a resposta.");
-            
-                var admins = await _userManager.Users.Where(u => u.IsAdmin && u.Email!=null).ToListAsync();
-                foreach(var admin in admins) {
-                    if(admin.Email!=null) {
-                        await _emailSender.SendEmailAsync(
-                            admin.Email,
-                            "BookIt - Novo Cadastro Pendente",
-                            $"Olá, {admin.Name}.\nUm novo usuário ({user.Name}, CPF: {userDto.Cpf}) solicitou cadastro no sistema. Acesse o painel administrativo para revisar a solicitação.");
-                    }
-                }
-            }
 
             if(!resultado.Succeeded) {
                 var errors = string.Join(", ", resultado.Errors.Select(e => e.Description));
@@ -216,13 +196,6 @@ public class UserService {
         }
 
         usuario.IsAprovado = true;
-        
-        if(usuario.Email!=null) {
-            await _emailSender.SendEmailAsync(
-                usuario.Email,
-                "BookIt - Cadastro Aprovado",
-                $"Parabéns, seu cadastro foi aprovado e você já pode acessar o sistema BookIt.");
-        }
 
         await _userManager.UpdateAsync(usuario);
         return "Usuário aprovado com sucesso.";

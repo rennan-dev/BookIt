@@ -75,8 +75,6 @@ builder.Services.AddCors(options => {
                         .AllowAnyHeader());
 });
 
-builder.Services.AddSingleton<IEmailSender, EmailSender>();
-
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope()) {
@@ -84,6 +82,8 @@ using (var scope = app.Services.CreateScope()) {
     var dbContext = services.GetRequiredService<UserDbContext>();
 
     dbContext.Database.Migrate(); 
+
+    await SeedData.Initialize(services);
 }
 
 app.UseSwagger();

@@ -68,7 +68,7 @@ const Cadastro = () => {
       });
   
       if (response.ok) {
-        alert("Solicitação de cadastro aceita, aguarde um email do admin com a sua confirmação.");
+        alert("Solicitação de cadastro aceita, aguarde a confirmação do administrador.");
         navigate("/login");
       } else {
         const errorData = await response.json();
