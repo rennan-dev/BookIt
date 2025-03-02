@@ -41,7 +41,7 @@ public class UserController : ControllerBase {
         } catch (ApplicationException ex) {
             return BadRequest(new { message = ex.Message });
         } catch (Exception ex) {
-            return StatusCode(500, new { message = "Erro interno no servidor." });
+            return StatusCode(500, new { message = $"Erro interno no servidor. Erro: {ex}" });
         }
     }
 
@@ -56,8 +56,14 @@ public class UserController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status200OK)]
     [HttpPost("login")]
     public async Task<IActionResult> LoginUser(LoginUserDto userDto) {
-        var token = await _userService.LoginUser(userDto);
-        return Ok(token);
+        try {
+            var token = await _userService.LoginUser(userDto);
+            return Ok(token);
+        }catch(ApplicationException ex) {
+            return BadRequest(new { message = ex.Message });
+        }catch(Exception ex) {
+            return StatusCode(500, new { message = $"Erro interno no servidor. Erro: {ex}" });
+        }
     }
 
     /// <summary>

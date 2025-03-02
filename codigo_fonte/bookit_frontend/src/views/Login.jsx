@@ -38,7 +38,7 @@ const Login = () => {
       const responseText = await response.text();
       console.log("Resposta bruta da API:", responseText);
   
-      if (response.ok) {
+      if(response.ok) {
         localStorage.setItem("token", responseText);
   
         try {
@@ -52,20 +52,27 @@ const Login = () => {
           console.log("Usuário é admin?", isAdmin);
           console.log("Usuário está aprovado?", isAprovado);
   
-          if (!isAprovado) {
+          if(!isAprovado) {
             alert("Você precisa aguardar a confirmação do administrador.");
-          } else {
+          }else {
             window.location.href = isAdmin ? "/admin" : "/servidor";
           }
-        } catch (decodeError) {
+        }catch(decodeError) {
           console.error("Erro ao decodificar token:", decodeError);
           alert("Erro ao processar autenticação. Tente novamente.");
         }
-      } else {
+      }else {
         console.error("Erro na autenticação:", response.status, responseText);
-        alert("CPF ou senha inválidos!");
+        const lowerMessage = responseText.toLowerCase();
+        if(lowerMessage.includes("não encontrado")) {
+          alert("CPF não cadastrado. Por favor, se cadastre primeiro.");
+        }else if(lowerMessage.includes("não autenticado")) {
+          alert("CPF ou senha inválidos!");
+        }else {
+          alert("Erro ao conectar com o servidor. Verifique sua conexão.");
+        }
       }
-    } catch (error) {
+    }catch(error) {
       console.error("Erro ao fazer login:", error);
       alert("Erro ao conectar com o servidor. Verifique sua conexão.");
     }
