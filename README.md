@@ -1,7 +1,7 @@
 
 # BookIt - (em desenvolvimento)
 
-Para utilizar a versão de forma simplificada utilize a branch Teste, se deseja utilizar o sistema com todas as funcionalidades utilize esta branch.
+Para utilizar a versão de forma simplificada utilize a branch Teste, se deseja utilizar o sistema com todas as funcionalidades utilize esta branch(atente-se às instruções).
 
 Para utilizar o painel do administrador utilize essas credenciais:
 
