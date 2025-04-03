@@ -3,7 +3,7 @@
 
 Para utilizar o painel do administrador utilize essas credenciais:
 
-```CPF: 123.456.789=00```
+```CPF: 123.456.789.00```
 
 ```Senha: Aaaa123!```
 
